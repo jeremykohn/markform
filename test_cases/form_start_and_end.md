@@ -8,15 +8,25 @@ Start of form, can be converted to <form> tag
 
 ```
 [+]
+```
 
+```
  [+]
+```
 
+```
   [+]
+```
 
+```
    [+]
+```
 
+```
 [+] [-]
+```
 
+```
 [+] Content [-]
 
 ```
@@ -25,12 +35,20 @@ Start of form, can be converted to <form> tag
 
 ```
     [+]
-    
+```
+
+```    
 [ +]
+```
 
+```
 [ + ]
+```
 
+```
 [-] [+]
+```
 
+```
 [-] Content [+]
 ```
