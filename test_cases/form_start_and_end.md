@@ -27,7 +27,15 @@ A *Markform start element* consists of a line beginning with zero to three space
 ```
 
 ```
+[++]
+```
+
+```
 [+ +]
+```
+
+```
+[+++]
 ```
 
 ```
@@ -115,7 +123,15 @@ A *Markform end element* consists of a line beginning with zero to three spaces,
 ```
 
 ```
+[--]
+```
+
+```
 [- -]
+```
+
+```
+[---]
 ```
 
 ```
