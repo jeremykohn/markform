@@ -173,9 +173,70 @@ Content [-]
 
 A *Markform block* begins with a Markform start element, and ends with either a Markform end element or the end of the document.
 
-### Test cases: Markform block without input element
+### Test cases: Markform blocks
 
-#### True
+#### Markform block with input element
+
+
+```
+[+]
+[_]
+[-]
+```
+
+
+```
+[+]
+
+[_]
+[-]
+```
+
+```
+[+]
+[_]
+
+[-]
+```
+
+```
+[+]
+
+[_]
+
+[-]
+```
+
+
+
+
+```
+[+]
+[_]
+```
+
+```
+[+]
+[_]
+[-]
+```
+
+
+
+```
+[+]
+[_]
+```
+
+```
+[+]
+
+[_]
+```
+
+
+
+#### Markform block without input element
 
 ```
 [+]
@@ -197,6 +258,16 @@ A *Markform block* begins with a Markform start element, and ends with either a 
 [_]
 [+]
 ```
+
+
+```
+[+]
+[-]
+[_]
+```
+
+
+
 
 ```
 [+]
@@ -214,90 +285,7 @@ Content
 [+]
 ```
 
-```
-[+] [_] [-]
-```
 
-
-
-#### False:
-
-```
-[_]
-```
-
-```
-[+]
-[_]
-```
-
-```
-[+]
-[_]
-[-]
-```
-
-
-### Test cases: Markform block with input element
-
-#### True:
-
-```
-[+]
-[_]
-[-]
-```
-
-
-```
-[+]
-
-[_]
-[-]
-```
-
-```
-[+]
-[_]
-
-[-]
-```
-
-```
-[+]
-
-[_]
-
-[-]
-```
-
-```
-[+]
-[_]
-```
-
-```
-[+]
-
-[_]
-```
-
-
-#### False:
-
-```
-[_]
-```
-
-```
-[_]
-[-]
-```
-
-```
-[-]
-[_]
-```
 
 ```
 [-]
@@ -308,3 +296,27 @@ Content
 ```
 [+] [_] [-]
 ```
+
+
+
+#### Not a Markform block
+
+```
+ 
+```
+
+```
+[_]
+```
+
+```
+[_]
+[-]
+```
+
+```
+[-]
+[_]
+```
+
+
