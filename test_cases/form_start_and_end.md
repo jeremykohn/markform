@@ -4,7 +4,7 @@
 
 ### Start of form
 
-Start of form, can be converted to <form> tag
+Start of form, can be converted to `<form>` tag
 
 ```
 [+]
