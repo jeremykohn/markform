@@ -225,22 +225,6 @@ Any Markform elements inside a Markform block are converted to HTML. The start a
 [-]
 ```
 
-
-
-
-```
-[+]
-[_]
-```
-
-```
-[+]
-[_]
-[-]
-```
-
-
-
 ```
 [+]
 [_]
