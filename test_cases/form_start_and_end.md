@@ -1,8 +1,8 @@
 # Test Cases
 
-## Form start and end
+## Markform start and end
 
-### Start of form
+### Markform start
 
 Start of form, can be converted to `<form>` tag
 
@@ -39,7 +39,7 @@ Start of form, can be converted to `<form>` tag
 ```
 
 
-### Not the start of a form
+### Not a Markform start
 
 ```
     [+]
@@ -64,3 +64,75 @@ Start of form, can be converted to `<form>` tag
 ```
 [-] Content [+]
 ```
+
+
+
+## Markform end
+
+Can be converted to `</form>` tag if it is preceded by a Markform start
+
+```
+[-]
+```
+
+```
+ [-]
+```
+
+```
+  [-]
+```
+
+```
+   [-]
+```
+
+```
+[- -]
+```
+
+```
+[- Content -]
+```
+
+```
+[-] [+]
+```
+
+```
+[-] Content [+]
+```
+
+
+### Not a Markform end
+
+```
+    [-]
+```
+
+```    
+[ -]
+```
+
+```
+[ - ]
+```
+
+```
+[- ]
+```
+
+```
+[+] [-]
+```
+
+```
+[+] Content [-]
+```
+
+
+
+
+
+
+
