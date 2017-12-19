@@ -23,12 +23,21 @@ Start of form, can be converted to <form> tag
 ```
 
 ```
+[+ +]
+```
+
+```
+[+ Content +]
+```
+
+```
 [+] [-]
 ```
 
 ```
 [+] Content [-]
 ```
+
 
 ### Not the start of a form
 
@@ -42,6 +51,10 @@ Start of form, can be converted to <form> tag
 
 ```
 [ + ]
+```
+
+```
+[+ ]
 ```
 
 ```
