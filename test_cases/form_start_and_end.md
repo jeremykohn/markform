@@ -65,6 +65,9 @@ Start of form, can be converted to `<form>` tag
 [-] Content [+]
 ```
 
+```
+Content [+]
+```
 
 
 ### Markform end
@@ -128,6 +131,9 @@ Can be converted to `</form>` tag if it is preceded by a Markform start
 
 ```
 [+] Content [-]
+```
+```
+Content [-]
 ```
 
 
