@@ -28,7 +28,6 @@ Start of form, can be converted to <form> tag
 
 ```
 [+] Content [-]
-
 ```
 
 ### Not the start of a form
