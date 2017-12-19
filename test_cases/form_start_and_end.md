@@ -6,7 +6,9 @@ A Markform start tag begins with an opening bracket and ends with a closing brac
 
 A Markdown start element consists of a line beginning with zero to three spaces, immediately followed by a Markform start tag, optionally followed by additional text.
 
-### Test cases: Markform start elements
+### Test cases: Markform start
+
+#### True:
 
 ```
 [+]
@@ -40,8 +42,7 @@ A Markdown start element consists of a line beginning with zero to three spaces,
 [+] Content [-]
 ```
 
-
-### Test cases: Not Markform start elements
+#### False:
 
 ```
  
@@ -133,6 +134,14 @@ A *Markdown end element* consists of a line beginning with zero to three spaces,
 #### False
 
 ```
+ 
+```
+
+```
+[]
+```
+
+```
     [-]
 ```
 
@@ -184,6 +193,12 @@ A *Markform block* begins with a Markform start element, and ends with either a 
 ```
 
 ```
+[-]
+[_]
+[+]
+```
+
+```
 [+]
 
 Content
@@ -222,6 +237,45 @@ Content
 
 #### True:
 
+```
+[+]
+[_]
+[-]
+```
+
+
+```
+[+]
+
+[_]
+[-]
+```
+
+```
+[+]
+[_]
+
+[-]
+```
+
+```
+[+]
+
+[_]
+
+[-]
+```
+
+```
+[+]
+[_]
+```
+
+```
+[+]
+
+[_]
+```
 
 
 #### False:
