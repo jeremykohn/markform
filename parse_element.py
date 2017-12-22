@@ -65,6 +65,10 @@ def parse_element(line):
 
         elif token is in symmetric_opening_tokens:
             opening_token = token
+            token_index = symmetric_opening_tokens.index(opening_token)
+            closing_token = symmetric_closing_tokens[token_index]
+            
+            
           
 """
             # todo
