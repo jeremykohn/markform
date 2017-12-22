@@ -64,24 +64,14 @@ def parse_element(line):
                 # Make sure to test this! Avoid off-by-one errors.
 
         elif token is in symmetric_opening_tokens:
+            
             opening_token = token            
             closing_token = symmetric_closing_tokens[symmetric_opening_tokens.index(opening_token)]
-
-            # TODO:
+            
             # Now, parse for symmetric closing token.
             # If found, get tag type (based on opening token) and inner content.
             # and set tag_closed = True
             
-            
-"""
-            # For symmetric tokens, don't allow multiple opening/closing tokens.
-            
-            # Edge case: [[[ ]]]
-            # That would become <textarea>[</textarea>] -- right? I think that's OK, though.
-"""
-            
-            
-
             j = i
             while j < len(line):
                 j += 1
@@ -93,9 +83,15 @@ def parse_element(line):
             # Now, get inner content.
 
             # This time, no multiple opening tokens or closing tokens.
-            # They just become part of inner content.
+            # They just become part of inner content?
 
             # Get content in between (one) opening token and (one) closing token.
+            
+            # Note --
+            # For symmetric tokens, don't allow multiple opening/closing tokens.            
+            # Edge case: [[[ ]]]
+            # That would become <textarea>[</textarea>], right? I think that's OK, though.
+            
             if tag_closed:
                 i += 1  # First post-opening-token character
                 j -= 2  # Last pre-closing-token character
