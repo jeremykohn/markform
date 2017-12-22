@@ -80,17 +80,12 @@ def parse_element(line):
                     tag_closed = True
                     break            
 
-            # Now, get inner content.
+            # Now, get inner content between tokens.
+            # These are symmetric tokens -- so, multiple opening/closing tokens are not allowed.
+            # Instead, get content between (first) opening token and (last) closing token.
 
-            # This time, no multiple opening tokens or closing tokens.
-            # They just become part of inner content?
-
-            # Get content in between (one) opening token and (one) closing token.
-            
-            # Note --
-            # For symmetric tokens, don't allow multiple opening/closing tokens.            
             # Edge case: [[[ ]]]
-            # That would become <textarea>[</textarea>], right? I think that's OK, though.
+            # That would become <textarea>[ ]</textarea>
             
             if tag_closed:
                 i += 1  # First post-opening-token character
@@ -107,11 +102,8 @@ def parse_element(line):
         # Return tag type, and inner content.
         # Tag type depends on token.
         
-        # if inner_content
+        # if inner_content,
         # return that too.
         
     else:
         return None
-    
-
-# Return token type (which becomes element type) and inner content of tag
