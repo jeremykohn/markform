@@ -64,27 +64,20 @@ def parse_element(line):
                 # Make sure to test this! Avoid off-by-one errors.
 
         elif token is in symmetric_opening_tokens:
-            opening_token = token
-            token_index = symmetric_opening_tokens.index(opening_token)
-            closing_token = symmetric_closing_tokens[token_index]
-            
-            
-          
-"""
-            # todo
-            
-            
-            # get index of opening_token in symmetric_opening_tokens
-            # then, look up that index in symmetric_closing_tokens
-            # Here, don't allow multiple opening/closing tokens.
-            
-            # Edge case: [[[ ]]]
-            # That would be <textarea>[</textarea>] -- right? I think that's OK, though.
-        
-        
-            # Now, look for symmetric closing token.
+            opening_token = token            
+            closing_token = symmetric_closing_tokens[symmetric_opening_tokens.index(opening_token)]
+
+            # TODO:
+            # Now, parse for symmetric closing token.
             # If found, get tag type (based on opening token) and inner content.
             # and set tag_closed = True
+            
+            
+"""
+            # For symmetric tokens, don't allow multiple opening/closing tokens.
+            
+            # Edge case: [[[ ]]]
+            # That would become <textarea>[</textarea>] -- right? I think that's OK, though.
 """
             
             
