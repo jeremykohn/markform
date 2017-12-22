@@ -27,10 +27,19 @@ def parse_element(line):
     if token:
         # Find the first closing bracket immediately preceded by the relevant token.
         # That'll be end of the Markform tag.
-        single_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
-        symmetric_opening_tokens = ['(', '[', '{' '|']
-        symmetric_closing_tokens = [')', ']', '}' '|']
         
+        # When only one token is required.
+        single_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
+        
+        # When two tokens are required.
+        # Maps opening token to the corresponding closing token.
+        symmetric_tokens: {
+            "(": ")",
+            "[": "]",            
+            "{": "}",
+            "|": "|"
+        }
+
         # See if token is on one of the relevant lists.    
 
         if token is in single_tokens:
@@ -63,12 +72,13 @@ def parse_element(line):
 
                 # Make sure to test this! Avoid off-by-one errors.
 
-        elif token is in symmetric_opening_tokens:
+        elif token is in symmetric_tokens:
             
+            # Get the opening token and the corresponding closing token.
             opening_token = token            
-            closing_token = symmetric_closing_tokens[symmetric_opening_tokens.index(opening_token)]
+            closing_token = symmetric_tokens[opening_token]
             
-            # Now, parse for symmetric closing token.
+            # Now, parse for closing token.
             # If found, get tag type (based on opening token) and inner content.
             # and set tag_closed = True
             
@@ -81,10 +91,10 @@ def parse_element(line):
                     break            
 
             # Now, get inner content between tokens.
-            # These are symmetric tokens -- so, multiple opening/closing tokens are not allowed.
+            
+            # For symmetric tokens, multiple opening/closing tokens are not allowed.
             # Instead, get content between (first) opening token and (last) closing token.
-
-            # Edge case: [[[ ]]]
+            # For example: [[[ ]]]
             # That would become <textarea>[ ]</textarea>
             
             if tag_closed:
