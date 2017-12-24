@@ -2,14 +2,14 @@ def parse_element(line):
     # To be a Markform element, line must start with zero to three spaces before opening bracket.
     while i < 4 and i < len(line):
         # A bracket opens a Markform element.
-        if line[i] == '{'
+        if line[i] == '{':
             tag_open = True
             i += 1
             break
         # If a space before a bracket, keep going.
         elif line[i] == ' ':
             i += 1
-        else
+        else:
             # If other characters precede the opening bracket and/or spaces, not a Markform element.
             tag_open = False
             break
@@ -33,7 +33,7 @@ def parse_element(line):
         
         # When two tokens are required.
         # Maps opening token to the corresponding closing token.
-        symmetric_tokens: {
+        symmetric_tokens = {
             "(": ")",
             "[": "]",            
             "{": "}",
@@ -42,7 +42,7 @@ def parse_element(line):
 
         # See if token is on one of the relevant lists.    
 
-        if token is in single_tokens:
+        if token in single_tokens:
             j = i
             while j < len(line):
                 j += 1
@@ -72,7 +72,7 @@ def parse_element(line):
 
                 # Make sure to test this! Avoid off-by-one errors.
 
-        elif token is in symmetric_tokens:
+        elif token in symmetric_tokens:
             
             # Get the opening token and the corresponding closing token.
             opening_token = token            
@@ -111,7 +111,8 @@ def parse_element(line):
     if tag_open and token and tag_closed:
         # Return tag type, and inner content.
         # Tag type depends on token.
-        
+        print("Tag opened and closed. Token: " + token)
+
         # if inner_content,
         # return that too.
         
