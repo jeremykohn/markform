@@ -4,18 +4,18 @@ A quick shorthand for creating HTML forms, inspired by [Markdown](https://daring
 
 ## Form elements
 
-| Markform code | Element name | HTML code |
+| Element name | Markform code | HTML code |
 | --- | -- | -- |
-| `[+]` | Form start | `<form>` |
-| `[_]` | Text input | `<input type="text">` |
-| `[[ ]]` | Textarea | `<textarea></textarea>` |
-| `[@]` | Email input | `<input type="email">` |
-| `[*]` | Password input | `<input type="password">` |
-| `[$]` | Number input | `<input type="number">` |
-| `[%]` | Range input | `<input type="range">` |
-| `[^]` | File upload | `<input type="file">` |
-| `[( )]` | Submit button | `<button type="submit">` |
-| `[-]` | Form end | `</form>` |
+| Form start | `[+]` | `<form>` |
+| Text input | `[_]` | `<input type="text">` |
+| Textarea | `[[ ]]` | `<textarea></textarea>` |
+| Email input | `[@]` | `<input type="email">` |
+| Password input |`[*]` | `<input type="password">` |
+| Number input | `[$]` | `<input type="number">` |
+| Range input | `[%]` | `<input type="range">` |
+| File upload | `[^]` | `<input type="file">` |
+| Submit button | `[( )]` | `<button type="submit">` |
+| Form end | `[-]` | `</form>` |
 
 ## Example usage
 
