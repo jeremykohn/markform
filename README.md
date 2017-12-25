@@ -22,7 +22,7 @@ A quick shorthand for creating HTML forms, inspired by [Markdown](https://daring
 Markform code:
 
 ```
-[+](post)(action.php)
+[+]
 
 Your name: [_]
 Your email address: [@]
@@ -36,7 +36,7 @@ Your message: [[ ]]
 Converted to HTML:
 
 ```
-<form method="post" action="action.php">
+<form>
   <div>
     <label for="markform-input-your-name">Your name:</label>
     <input id="markform-input-your-name" type="text">
