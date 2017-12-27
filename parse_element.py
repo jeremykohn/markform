@@ -1,18 +1,29 @@
 def parse_element(line):
-    # To be a Markform element, line must start with zero to three spaces before opening bracket.
-    while i < 4 and i < len(line):
-        # A bracket opens a Markform element.
-        if line[i] == '{':
-            tag_open = True
-            i += 1
-            break
-        # If a space before a bracket, keep going.
-        elif line[i] == ' ':
-            i += 1
-        else:
-            # If other characters precede the opening bracket and/or spaces, not a Markform element.
-            tag_open = False
-            break
+    # Current position in line. Start at beginning of line.
+    pos = 0
+    
+    # If line begins with four or more spaces, or a tab, not a Markform element.
+    # If line begins with fewer than four spaces, ignore initial spaces.
+    initial_spaces = 0
+    while line[pos] == " ":
+        pos += 1
+        initial_spaces += 1
+        if initial_spaces >= 4:
+            # Line is not a Markform element.
+            return None
+    
+    # If line starts with zero or more spaces followed by a tab, not a Markform element.
+    if line[pos] == "\t":
+        return None
+    
+    
+    # Other whitespace at start of line?
+    
+    # Continue until opening bracket.
+    # At that point, set tag_open = True
+    # and put existing text into "text_before_tag"
+    
+
     
     if tag_open:
         # Get the next character, right after opening bracket.
