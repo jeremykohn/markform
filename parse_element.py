@@ -44,12 +44,10 @@ def parse_element(line):  # or split_line? identify_tag?
             token = line[pos]
     else:
         token = None
-
-    # The token 
+    
     
     # If there is an opening token, search for a tag closing, 
     # which is a closing token followed by a closing bracket.
-    # find the 
     if token:
 
         # For some types of Markform tags, the opening and closing tokens are the same character.
@@ -69,7 +67,9 @@ def parse_element(line):  # or split_line? identify_tag?
         
         # See if token is on one of the relevant lists.    
 
+                
         if token in single_tokens:
+            # Search forward for closing bracket.
             j = i
             while j < len(line):
                 j += 1
