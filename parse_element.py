@@ -36,12 +36,8 @@ def parse_element(line):  # or split_line? identify_tag?
         # Step forward.
         pos += 1
 
-    # If an opening bracket, parse the text afterwards to identify the type of tag.
-    # Get the next character, immediately to the right of opening bracket.
-    # If any.
-    
-    # The token (character immediately after the opening bracket) (if any) determines the type of Markform tag.
-    
+    # If there is an opening bracket, get the next character, if any.
+    # That character is a "token" that determines the type of Markform tag.
     if tag_open:
         pos += 1
         if pos < len(line):
@@ -49,23 +45,28 @@ def parse_element(line):  # or split_line? identify_tag?
     else:
         token = None
 
+    # The token 
     
+    # If there is an opening token, search for a tag closing, 
+    # which is a closing token followed by a closing bracket.
+    # find the 
     if token:
-        # Find the first closing bracket immediately preceded by the relevant token.
-        # That'll be end of the Markform tag.
-        
-        # When only one token is required.
+
+        # For some types of Markform tags, the opening and closing tokens are the same character.
         single_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
         
-        # When two tokens are required.
-        # Maps opening token to the corresponding closing token.
+        # For other Markform tags, the closing token is the inverse of the opening token.
+        
+        # This dictionary maps each opening token to the corresponding closing token.
         symmetric_tokens = {
             "(": ")",
             "[": "]",            
             "{": "}",
             "|": "|"
         }
+        # Change to "paired_tokens"?
 
+        
         # See if token is on one of the relevant lists.    
 
         if token in single_tokens:
