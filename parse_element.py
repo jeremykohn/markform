@@ -11,23 +11,18 @@
 
 def parse_element(line):
     
-    # Initialize values.
+    # Components to return.
+    pre_tag_text = ""
+    tag_inner_content = ""
+    post_tag_text = ""
+    tag_type = None 
+
+    # Conditions to satisfy to create a Markform tag.
     tag_open = False
     token = None
     tag_closed = False
     
-    pre_tag_text = ""
-    tag_type = None
-    tag_inner_content = ""
-    post_tag_text = ""
-    
-    # Or, instead of tag_text return tag_type and inner_content
-    
-    # Thus, this function would
-    # "split Markform element into four values, or return None if not a Markform element"
-    # Thus the function does one thing. No "And".
-    
-    # Current position in line. Start at beginning of line.
+    # Current position. Start at beginning of line.
     pos = 0
     
     # If line begins with four or more spaces, or a tab, not a Markform element.
@@ -45,16 +40,12 @@ def parse_element(line):
         pos += 1
             
             
-    # Parse content after initial spaces, before tag.
-    
-    content_before_tag = ""
-    
-    # Find opening bracket if any.
+    # Get content after initial spaces, before opening bracket.
     while pos < len(line): 
         if line[pos] == "[":
             tag_open = True
         else:
-            content_before_tag += line[pos]
+            pre_tag_text += line[pos]
         # Step forward.
         pos += 1
 
@@ -76,7 +67,6 @@ def parse_element(line):
         single_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
         
         # For other Markform tags, the closing token is the inverse of the opening token.
-        
         # This dictionary maps each opening token to the corresponding closing token.
         symmetric_tokens = {
             "(": ")",
@@ -89,7 +79,8 @@ def parse_element(line):
         
         # See if token is on one of the relevant lists.    
 
-                
+        
+        # (Change j and i to more descriptive variable names)
         if token in single_tokens:
             # Search forward for closing bracket.
             j = i
