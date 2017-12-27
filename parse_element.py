@@ -1,4 +1,15 @@
-def parse_element(line):  # or split_line? identify_tag?
+# Splits Markform element into pre-tag, post-tag, tag type, and tag inner content.
+# Or returns None if line is not a Markform element.
+
+# Remember to trim whitespace around pre-tag and post-tag.
+
+# Also throw an error if input includes newline.
+
+
+
+# "parse_element()", "parse_line()", "split_element()", or "split_line()"
+
+def parse_element(line):
     
     # Initialize values.
     tag_open = False
@@ -6,8 +17,15 @@ def parse_element(line):  # or split_line? identify_tag?
     tag_closed = False
     
     pre_tag_text = ""
-    tag_text = ""
+    tag_type = None
+    tag_inner_content = ""
     post_tag_text = ""
+    
+    # Or, instead of tag_text return tag_type and inner_content
+    
+    # Thus, this function would
+    # "split Markform element into four values, or return None if not a Markform element"
+    # Thus the function does one thing. No "And".
     
     # Current position in line. Start at beginning of line.
     pos = 0
