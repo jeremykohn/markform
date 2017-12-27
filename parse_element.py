@@ -5,6 +5,10 @@ def parse_element(line):  # or split_line? identify_tag?
     token = None
     tag_closed = False
     
+    pre_tag_text = ""
+    tag_text = ""
+    post_tag_text = ""
+    
     # Current position in line. Start at beginning of line.
     pos = 0
     
