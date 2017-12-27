@@ -68,13 +68,12 @@ def parse_element(line):
         
         # For other Markform tags, the closing token is the inverse of the opening token.
         # This dictionary maps each opening token to the corresponding closing token.
-        symmetric_tokens = {
+        inverse_tokens = {
             "(": ")",
             "[": "]",            
             "{": "}",
             "|": "|"
         }
-        # Change to "paired_tokens"?
 
         
         # See if token is on one of the relevant lists.    
@@ -112,11 +111,11 @@ def parse_element(line):
 
                 # Make sure to test this! Avoid off-by-one errors.
 
-        elif token in symmetric_tokens:
+        elif token in inverse_tokens:
             
             # Get the opening token and the corresponding closing token.
             opening_token = token            
-            closing_token = symmetric_tokens[opening_token]
+            closing_token = inverse_tokens[opening_token]
             
             # Now, parse for closing token.
             # If found, get tag type (based on opening token) and inner content.
@@ -133,9 +132,10 @@ def parse_element(line):
             # Now, get inner content between tokens.
             
             # For symmetric tokens, multiple opening/closing tokens are not allowed.
-            # Instead, get content between (first) opening token and (last) closing token.
-            # For example: [[[ ]]]
-            # That would become <textarea>[ ]</textarea>
+            # Instead, get content between (first) opening token and (first) closing token.
+            # For example: `[[[ ]]]`
+            # That would become `<textarea>[</textarea>]`
+            # Assuming of course that a space is not required after opening token.
             
             if tag_closed:
                 i += 1  # First post-opening-token character
