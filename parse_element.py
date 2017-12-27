@@ -1,39 +1,54 @@
-def parse_element(line):
+def parse_element(line):  # or split_line? identify_tag?
+    
+    # Initialize values.
+    tag_open = False
+    token = None
+    tag_closed = False
+    
     # Current position in line. Start at beginning of line.
     pos = 0
     
     # If line begins with four or more spaces, or a tab, not a Markform element.
     # If line begins with fewer than four spaces, ignore initial spaces.
     initial_spaces = 0
-    while line[pos] == " ":
-        pos += 1
-        initial_spaces += 1
-        if initial_spaces >= 4:
-            # Line is not a Markform element.
+    while pos < len(line):
+        if pos == " ":
+            initial_spaces += 1
+        elif pos == "\t":
+            # Line is not a Markform element if it has a tab before content.
             return None
+        else:
+            break
+        # Step forward.
+        pos += 1
+            
+            
+    # Parse content after initial spaces, before tag.
     
-    # If line starts with zero or more spaces followed by a tab, not a Markform element.
-    if line[pos] == "\t":
-        return None
+    content_before_tag = ""
     
-    
-    # Other whitespace at start of line?
-    
-    # Continue until opening bracket.
-    # At that point, set tag_open = True
-    # and put existing text into "text_before_tag"
-    
+    # Find opening bracket if any.
+    while pos < len(line): 
+        if line[pos] == "[":
+            tag_open = True
+        else:
+            content_before_tag += line[pos]
+        # Step forward.
+        pos += 1
 
+    # If an opening bracket, parse the text afterwards to identify the type of tag.
+    # Get the next character, immediately to the right of opening bracket.
+    # If any.
+    
+    # The token (character immediately after the opening bracket) (if any) determines the type of Markform tag.
     
     if tag_open:
-        # Get the next character, right after opening bracket.
-        i += 1
-        # Make sure to avoid index errors.
-        if i < len(line):
-            # This is the token that determines the type of Markform element.
-            token = line[i]
-        else:
-            token = None
+        pos += 1
+        if pos < len(line):
+            token = line[pos]
+    else:
+        token = None
+
     
     if token:
         # Find the first closing bracket immediately preceded by the relevant token.
