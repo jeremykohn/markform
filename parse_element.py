@@ -12,7 +12,13 @@
 def parse_element(line):
 
     # Validate input.
-    # Should be text of length > 0, without "\n"
+    # Should be text without "\n"
+    
+    if type(line) is not str:
+        raise ValueError("Markdown element must be a string")
+    
+    if "\n" in line:
+        raise ValueError("Markdown element cannot include newline")
     
     # Components to return.
     pre_tag_text = ""
