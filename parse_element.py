@@ -10,6 +10,9 @@
 # "parse_element()", "parse_line()", "split_element()", or "split_line()"
 
 def parse_element(line):
+
+    # Validate input.
+    # Should be text of length > 0, without "\n"
     
     # Components to return.
     pre_tag_text = ""
