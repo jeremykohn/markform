@@ -19,7 +19,7 @@ A quick shorthand for creating HTML forms, inspired by [Markdown](https://daring
 
 ## Example usage
 
-Markform code:
+Markform:
 
 ```
 [+]
