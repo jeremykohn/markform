@@ -1,12 +1,6 @@
 # Splits Markform element into pre-tag, post-tag, tag type, and tag inner content.
 # Or returns None if line is not a Markform element.
 
-# Remember to trim whitespace around pre-tag and post-tag.
-
-# Also throw an error if input includes newline.
-
-
-
 # "parse_element()", "parse_line()", "split_element()", or "split_line()"
 
 
@@ -113,8 +107,7 @@ def parse_element(line):
     else:
         return None
 
-    
-
+  
 
 
 def parse_tag(tag_text):
@@ -256,23 +249,8 @@ def parse_tag(tag_text):
         # Though whitespace is required if there's inner content.
         
         # Then, line[pos_left:pos_right+1] is inner content.
-        
-    
-    
-    # In either case,
-        # get pos_left to the beginning of inner content,
-        # and pos_right to the end of inner content.
-        # That is, if there's inner content... which there isn't if pos_left and pos_right are the same.
-        # Of if there's just whitespace.
-
-            # For symmetric tokens, multiple opening/closing tokens are not allowed.
-            # Instead, get content between (first) opening token and (first) closing token.
-            # For example: `[[[ ]]]`
-            # That would become `<textarea>[</textarea>]`
-            # Assuming of course that a space is not required after opening token.
-            # And assuming we allow pre tag text or post tag text to border tag.
-            
-
+        # Including whitespace surrounding inner content? (make sure it's just inner content.)
+        # (Or trim whitespace later.)
             
         # Return tag type, and inner content.
         # Tag type depends on token.
@@ -281,6 +259,3 @@ def parse_tag(tag_text):
         
     else:
         return None
-
-    
-# Instead of skip whitespace, just trim whitespace later?    
