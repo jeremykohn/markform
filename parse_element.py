@@ -61,9 +61,8 @@ def parse_element(line):
     # If there is an opening bracket, get the next character, if any.
     # That character is a "token" that determines the type of Markform tag.
     if tag_open:
-        pos += 1
-        if pos < len(line):
-            token = line[pos]
+        if pos + 1 < len(line):
+            token = line[pos + 1]
     else:
         token = None
     
@@ -88,20 +87,32 @@ def parse_element(line):
         # See if token is on one of the relevant lists.    
 
         
-        # (Change j and i to more descriptive variable names)
+        
+        
+
+        
         if token in single_tokens:
+            pos_left = pos
+            pos_right = pos
             # Search forward for closing bracket.
-            j = i
-            while j < len(line):
-                j += 1
-                if line[j] == ']' and line[j-1] == token:
-                    # Found end of tag.
-                    tag_closed = True
-                    break
+            while pos_right < len(line):
+                pos_right += 1
+                if line[pos_right] == "]":
+                    pos_left_bracket = pos_left
+                    pos_right_bracket = pos_right
+                    pos_left_token = pos_left + 1
+                    pos_right_token = pos_right - 1
+                    # Now, look for closing token.
+                    if line[pos_right - 1] == token:
+                        tag_closed = True
+                        break
+                    # Or, reuse this for closing token?
+            
             
             # Get content in between continous opening token(s) and continuous closing token(s).
             # Work forwards, and backwards.
-            
+
+            # (Again, change j and i to more descriptive variable names)
             if tag_closed:
                 i += 1
                 j -= 1
