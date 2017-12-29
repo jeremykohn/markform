@@ -202,6 +202,7 @@ def parse_tag(tag_text):
             # pos_left should be at first character of inner content.
             # Or else at (one of the) closing token(s), in which case we're done.
             # Though what if [+++ +o+]?
+            # Parse to make sure that doesn't happen.
 
 
             # Move pos_right leftward to find end of inner content.
@@ -236,6 +237,7 @@ def parse_tag(tag_text):
     elif opening_token in inverse_tokens:
 
         # Special case if [[]], [()], etc? Or require [[ ]], [( )]?
+        # I think require space.
         
         # Validate whitespace next to opening, closing tokens
         if tag_text[2] != " " or tag_text[-3] != " ":
