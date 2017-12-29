@@ -87,8 +87,6 @@ def parse_element(line):
         # If not found, keep moving.
         pos += 1
 
-    if opening_token
-
     # If there is an opening token, search for a tag closing, 
     # which is a closing token followed by a closing bracket.
     if opening_token:
@@ -115,60 +113,147 @@ def parse_element(line):
     else:
         return None
 
+    
 
-                
+
 
 def parse_tag(tag_text):
-    # Return token type --> tag type, and also inner text.
+    # Return token type --> tag type, and also text between tokens --> inner content.
     
-    # Sanity checks
+    # Initial values.
+    token_type = None
+    inner_content = None
+    
+    # Validations.
+    
+    # Also disallow newline? Though earlier function should take care of that.
     
     if type(tag_text) is not str:
+        print("Tag text: {}".format(tag_text))
         raise ValueError("Tag must be a string.")
     
     if tag_text = "":
         raise ValueError("Tag text cannot be empty.")
 
-    # Other validations? Confirm tag format?
-    # Should be bracket, opening token, ends with corresponding closing token followed by bracket.
-    # Might want to confirm that before proceeding.
+    if len(tag_text) < 3:
+        print("Tag text: {}".format(tag_text))
+        raise ValueError("Tag text must be at least three characters.")
     
-    # Meanwhile, get the token type.
+    if tag_text[0] != "[" or tag_text[-1] != "]":
+        print("Tag text: {}".format(tag_text))
+        raise ValueError("Tag text must begin with '[' and end with ']'.")
     
-    pos_left = 0
-    pos_right = len(tag_text) - 1
 
-    # Move inward, get tag type, and inner content if any.
+    # Allow [____ Inner content _]? Or [___ Inner content ___]?
+    # Or just allow [_], [___], [_   _], [_ Inner content _] and throw error otherwise?
     
-    # If not the right format, or token not on list, return error. (ValueError?) (Tag must be in the right format.)
-    
-    pos_left += 1
-    opening_token = tag_text[pos_left]
-    
+    # Character immediately following the opening bracket is the opening token.
+    opening_token = tag_text[1]
+
     if opening_token in simple_tokens:
-        closing_token = 
-        while tag_text[pos_left] == opening_token:
-            # Advance pos_left
-            # After opening tokens (and after whitespace?), inner content begins.
-            # (I think yes after whitespace. Otherwise [_inner content_] might look like emphasis, underlines, etc.
-            pos_left += 1
-        # Now, skip whiespace.
-        while tag_text[pos_left] == " ":
-            pos_left += 1
-        # At this point, 
-        # pos_left should be at first character of inner content.
-        # Or else at closing bracket.
+        # Opening and closing tokens are the same.
+        closing_token = opening_token
+ 
+    elif opening_token in inverse_tokens:
+        # Opening and closing tokens are inverses. ( ), { }, etc.
+        closing_token = inverse_tokens[opening_token]
+    
+    else:
+        print("Tag text: {}".format(tag_text))
+        raise ValueError("The character " + opening_token + " is not a valid Markform token in the current spec.")
+    
+    # Validate.
+
+    if tag_text[-2] != closing_token:
+        print("Tag text: {}".format(tag_text))
+        raise ValueError("Tag must include both opening token and closing token.")
         
-        # If pos_left == pos_right, it means pos_left is at closing bracket.
-        # If not, then move pos_right leftward to find end of inner content.
         
-        # Although, if no closing token, something is wrong -- throw error.
+    # Continue parsing.
+    # Again, it depends on simple_tokens vs inverse_tokens.
+   
+    if opening_token in simple_tokens:
+        # Special cases: [_], [@], [__], [@@], etc.
+        if len(tag_text) == 3 or len(tag_text) == 4:
+            return (opening_token, None)
+        else:
+            pos_left = 1  # Opening token
+            pos_right = len(tag_text) - 2  # Closing token
+            
+            while tag_text[pos_left] == opening_token:
+                # Advance pos_left
+                # After opening tokens (and after whitespace?), inner content begins.
+                # (I think yes after whitespace. Otherwise [_inner content_] might look like emphasis, underlines, etc.
+                pos_left += 1
+
+            if pos_left >= pos_right:
+                # Done. pos_left got to closing token or to closing bracket. No inner content.
+                return (opening_token, None)
+            
+            elif tag_text[pos_left] != " ":
+                # Should be whitespace. If not, invalid.
+                print("Tag text: {}".format(tag_text))
+                raise ValueError("There must be at least one space separating opening tokens from inner content.")
+
+            # Else, skip whitespace.
+            while tag_text[pos_left] == " ":
+                pos_left += 1
+            # At this point, 
+            # pos_left should be at first character of inner content.
+            # Or else at (one of the) closing token(s), in which case we're done.
+            # Though what if [+++ +o+]?
+
+
+            # Move pos_right leftward to find end of inner content.
+            while tag_text[pos_right] == closing_token:
+                pos_right -= 1
+
+            if pos_left >= pos_right:
+                # Done. pos_left got to closing token or to closing bracket. No inner content.
+                return (opening_token, None)
+            
+            # If there is inner content, there must be whitespace after it, before closing token(s0.
+            elif tag_text[pos_right] != " ":
+                # Should be whitespace. If not, invalid.
+                print("Tag text: {}".format(tag_text))
+                raise ValueError("There must be at least one space separating opening tokens from inner content.")
+
+            # Now, skip whitespace while moving leftward.
+            while tag_text[pos_right] == " ":
+                pos_right -= 1
+            # At this point, 
+            # pos_right should be at first character of inner content.
+            # Or else at opening token.
+
+            if pos_left >= pos_right:
+                # They are either at the same position, or they crossed over.
+                # In either case, it means there's no inner content.
+                return (opening_token, None)
+            else:
+                inner_content = line[pos_left:pos_right+1]
+
 
     elif opening_token in inverse_tokens:
-        closing_token = inverse_tokens[opening_token]
+
+        # Special case if [[]], [()], etc? Or require [[ ]], [( )]?
+        
+        # Validate whitespace next to opening, closing tokens
+        if tag_text[2] != " " or tag_text[-3] != " ":
+            print("Tag text: {}".format(tag_text))
+            raise ValueError("Tag must include space between the opening token and the corresponding closing token.")  # Really? or allow things like [[]]?   
+        
         # No multiple opening tokens allowed if the tag has inverse tokens.
-        # So, just advance one position.
-        # Then skip whitespace.
+        
+        # Should be only one opening token, one closing token.
+        # And then at least one " " in each direction.
+        # Skip whitespace.
+        
+        # Move pos_left rightward.
+        # Likewise, move pos_right leftward.
+        # Skip whitespace.
+        # Though whitespace is required if there's inner content.
+        
+        # Then, line[pos_left:pos_right+1] is inner content.
         
     
     
@@ -176,6 +261,7 @@ def parse_tag(tag_text):
         # get pos_left to the beginning of inner content,
         # and pos_right to the end of inner content.
         # That is, if there's inner content... which there isn't if pos_left and pos_right are the same.
+        # Of if there's just whitespace.
 
             # For symmetric tokens, multiple opening/closing tokens are not allowed.
             # Instead, get content between (first) opening token and (first) closing token.
@@ -193,3 +279,6 @@ def parse_tag(tag_text):
         
     else:
         return None
+
+    
+# Instead of skip whitespace, just trim whitespace later?    
