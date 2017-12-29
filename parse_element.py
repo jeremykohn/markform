@@ -23,8 +23,6 @@ def parse_element(line):
     post_tag_text = ""
 
     # Initial conditions.
-    tag_open = False  # tag_open requires opening bracket followed by opening token.  # Guess I don't need this.
-    tag_closed = False  # tag_closed requires closing token followed by closing bracket.  # Or this.
     opening_token = None
     closing_token = None    
 
