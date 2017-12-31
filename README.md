@@ -90,4 +90,7 @@ Converted to HTML:
     <label for="markform-input-number-vertical-resolution">Vertical resolution:</label>
     <input id="markform-input-number-vertical-resolution" type="number">
   </div>
+  <div>
+    <button id="markform-button-upload-image" type="submit">Upload image</button>
+  </div>
 </form>
