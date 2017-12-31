@@ -19,6 +19,8 @@ A quick shorthand for creating HTML forms, inspired by [Markdown](https://daring
 
 ## Example usage
 
+### Website feedback form
+
 Markform:
 
 ```
@@ -54,3 +56,38 @@ Converted to HTML:
   </div>
 </form>
 ```
+
+### Image upload form
+
+Markform:
+
+```
+[+]
+
+Image to rescale: [^]
+
+Horizontal resolution: [$]
+Vertical resolution: [$]
+
+[(Upload image)]
+
+[-]
+```
+
+Converted to HTML:
+
+```
+<form>
+  <div>
+    <label for="markform-input-file-image-to-rescale">Image to rescale:</label>
+    <input id="markform-input-file-image-to-rescale" type="file">
+  </div>
+  <div>
+    <label for="markform-input-number-horizontal-resolution">Horizontal resolution:</label>
+    <input id="markform-input-number-horizontal-resolution" type="number">
+  </div>
+  <div>
+    <label for="markform-input-number-vertical-resolution">Vertical resolution:</label>
+    <input id="markform-input-number-vertical-resolution" type="number">
+  </div>
+</form>
