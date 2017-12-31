@@ -27,7 +27,7 @@ If the opening token does not have an inverse, the closing token is the same as 
 If the opening token has an inverse, the closing token is the inverse of the opening token. 
 - Tags whose opening token and closing token are inverses are called "inverse-token tags."
 - Examples:
-  - `[(` `)]`
-  - `[[` `]]`
+  - `[( )]`
+  - `[[ ]]`
 - Inverse-token tags may not include multiple opening tokens or multiple closing tokens. For example: `[(( ))]` is invalid.
   
