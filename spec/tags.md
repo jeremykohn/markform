@@ -1,23 +1,28 @@
-Opening and closing brackets/tokens
+### Opening and closing
 
-A Markform tag begins with an opening bracket `[`, immediately followed by a character or "opening token" that identifies the type of tag. A Markform tag ends with a character or "closing token" that corresponds to the opening token, immediatly followed by a closing bracket `]`.
+A Markform tag begins with an opening bracket `[` and ends with a closing bracket `]`.
 
-For some types of Markform tags, the opening and closing tokens are the same character. Examples:
-- `[+ +]`
-- `[_ _]`
-- `[@ @]`, etc. 
+The character immediately after the opening bracket in a Markform tag is called an "opening token." It identifies the Markform tag type. 
 
-These tag types can be three characters long, with the middle character serving as both the opening token and the closing token. Examples:
+The character immediately before the closing bracket in a Markform tag is called a "closing token."
+
+A Markform tag may optionally include whitespace or other text between the opening token(s) and closing token(s). Any text becomes the tag's "inner content."
+
+If the opening token has an inverse, the closing token is the inverse of the opening token. 
+- Tags whose opening token and closing token are inverses are called "inverse-token tags."
+- Examples:
+  - `[(` `)]`
+  - `[[` `]]`
+- Inverse-token tags may not include multiple opening tokens or multiple closing tokens. For example: `[(( ))]` is invalid.
+  
+If the opening token does not have an inverse, the closing token is the same as the opening token. 
+- Tags whose opening token and closing token are inverses are called "same-token tags."
+- Examples:
+  - `[+ +]`
+  - `[_ _]`
+  - `[@ @]`
+- "Same-token" tags can be three characters long, with the middle character serving as both the opening token and the closing token:
   - `[+]`
   - `[_]`
   - `[@]`
-
-Also, non-inverse tag types may include multiple opening tokens and/or closing tokens. For example: `[__  __]` is valid.
-
-For other types of Markform tags, the closing token is the inverse of the opening token. Examples:
-- `[(` `)]`
-- `[[` `]]`
-
-"Inverse" tag types may not include multiple opening tokens or multiple closing tokens. For example: `[(( ))]` is invalid.
-
-A Markform tag may optionally include whitespace or other text between the opening token(s) and closing token(s). Any text becomes the tag's "inner content."
+- Same-token tags may include multiple opening tokens and/or closing tokens. For example: `[__  __]` is valid.
