@@ -69,8 +69,8 @@ def parse_element(line):
     # Search for opening bracket followed by opening token.
     # If found, get opening token and (based on opening token) closing token.
     
-    # Remember to replace simple_tokens with same_tokens?
-    # Or symmetric_tokens?
+    # Remember to replace "simple_tokens" with "same_tokens"?
+    # Or "symmetric_tokens"?
     
     while pos < len(line):
         # Current character.
@@ -129,7 +129,8 @@ def parse_element(line):
     else:
         return None
 
-  
+    
+######
 
 
 def parse_tag(tag_text):
@@ -179,52 +180,6 @@ def parse_tag(tag_text):
 
     # Also disallow newline within tag_text? Though "split into lines" function should take care of that.
 
-    ###
-
-    # Bracket, opening token(s), optionally whitespace, inner content, optionally whitespace, closing token(s), bracket.
-    
-    # Allow [____ Inner content _]? Or [___ Inner content ___]?
-    # Or just allow [_], [___], [_   _], [_ Inner content _] and throw error otherwise?
-    
-    # I think allow one or more opening tokens, one or more closing tokens, and whitespace optional.
-    
-    ###
-    
-    
-
-    
-"""
-    # Character immediately following the opening bracket is the initial token.
-    token = tag_text[1]
-
-    if opening_token in simple_tokens:
-        # Opening and closing tokens are the same.
-        closing_token = opening_token
-
-    elif opening_token in inverse_tokens:
-        # Opening and closing tokens are inverses. ( ), { }, etc.
-        closing_token = inverse_tokens[opening_token]
-    
-    else:
-        print("Tag text: {}".format(tag_text))
-        raise ValueError("The character " + opening_token + " is not a valid Markform token in the current spec.")
-    
-    # Validate.
-
-    if tag_text[-2] != closing_token:
-        print("Tag text: {}".format(tag_text))
-        raise ValueError("Tag must include both opening token and closing token.")
-    
-    
-    # Continue parsing.
-    # Again, it depends on simple_tokens vs inverse_tokens.
-"""
-
-    
-    # tag_text[pos_left] == "["
-    # tag_text[pos_right] == "]"
-    # I think we checked for that earlier, so not an issue.
-    
     if token in simple_tokens:
         opening_token = token
         closing_token = token
@@ -270,19 +225,6 @@ def parse_tag(tag_text):
         else:
             inner_content = tag_text[pos_left+1:pos_right]
             return (opening_token, inner_content)
-        
-        
-        
-    # Escaped token?
-    # Like, [*placeholderincludingasterisk\**]
-    
-    # No, require a space in between.
-    # Like, [*placeholderincludingasterisk* *]
-    
-    # However, when parsing initially, should allow escaping brackets.
-    
-    
-
 
     elif token in inverse_tokens:
         opening_token = token
@@ -313,26 +255,53 @@ def parse_tag(tag_text):
             inner_content = tag_text[pos_left+1:pos_right]
             return (opening_token, inner_content)
 
-        # Special case if [[]], [()], etc? Or require [[ ]], [( )]?
-        # I think don't require space.
-        
-        # No multiple opening tokens allowed if the tag has inverse tokens.
-        
-        # Should be only one opening token, one closing token.
-        # And then skip whitespace.
-        
-        # What if multiple opening or closing tokens?
-        # I think don't create tag in that case.
-        # Or, extra tokens become part of inner content.
-        # Or just return None, so text isn't converted to tag at all.
-
-        
-        
-        
-        
-            
-        # Return token (on which tag type depends), and inner content.
-
     # If opening token is on neither list
     else:
         return (None, None)
+
+    
+
+    ###
+
+    # Tag format:
+    # Bracket, opening token(s), optionally whitespace, inner content, optionally whitespace, closing token(s), bracket.
+    
+    # Tag format for simple tokens:
+    # Bracket, one or more opening tokens, optionally whitespace, inner content, optionally whitespace, one or more closing tokens, bracket. 
+    
+    # Tag format for inverse tokens:
+    # Bracket, one opening token, optionally whitespace, inner content, optionally whitespace, one closing token, bracket.
+    
+    ###
+    
+    # Allow [____ Inner content _]? Or [___ Inner content ___]?
+    # Or just allow [_], [___], [_   _], [_ Inner content _] and throw error otherwise?
+    
+    # I think allow one or more opening tokens, one or more closing tokens, and whitespace optional.
+
+    ###
+        
+    # Escaped token?
+    # Like, [*placeholderincludingasterisk\**]
+    
+    # No, require a space in between.
+    # Like, [*placeholderincludingasterisk* *]
+    
+    # However, when parsing initially, should allow escaping brackets.
+    
+    ###
+    
+    # Special case if [[]], [()], etc? Or require [[ ]], [( )]?
+    # I think don't require space.
+
+    # No multiple opening tokens allowed if the tag has inverse tokens.
+
+    # Should be only one opening token, one closing token.
+    # And then skip whitespace.
+
+    # What if multiple opening or closing tokens?
+    # I think don't create tag in that case.
+    # Or, extra tokens become part of inner content.
+    # Or just return None, so text isn't converted to tag at all.
+
+    # TODO: Write all these rules into the spec.
