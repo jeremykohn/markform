@@ -305,3 +305,5 @@ def parse_tag(tag_text):
     # Or just return None, so text isn't converted to tag at all.
 
     # TODO: Write all these rules into the spec.
+
+    # TODO: Write the validations into the API -- specify input and output formats (and requirements).
