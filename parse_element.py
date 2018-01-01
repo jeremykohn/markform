@@ -133,15 +133,13 @@ def parse_element(line):
 
 
 def parse_tag(tag_text):
-    # Return token type --> tag type, and also text between tokens --> inner content.
-    
-    # Initial values.
-    token_type = None
-    inner_content = None
+    # Return opening token (which determines tag type), and also text between tokens (inner content).
     
     # Validate input.
-    
-    # Also disallow newline within tag_text? Though earlier function should take care of that.
+    # TODO: Change this so instead of raising error, it just keeps the text as is and doesn't consider it a tag.
+    # Also, write test cases like `[[[ ]]]` to see what should happen.
+    # I think `[[ ]]]` would turn into <tag>]
+    # And `[[[ ]]` would just be [[[ ]]
     
     if type(tag_text) is not str:
         print("Tag text: {}".format(tag_text))
@@ -169,10 +167,7 @@ def parse_tag(tag_text):
     if tag_text[1] in inverse_tokens and tag_text[-2] != inverse_tokens[tag_text[1]]:
         print("Tag text: {}".format(tag_text))
         raise ValueError("Opening token " + tag_text[1] + " requires the inverse closing token, not " + tag_text[-2])
-        
-
-        
-
+    
     # For inverse tokens, repeated opening tokens or repeated closing tokens are not allowed.
     if tag_text[1] in inverse_tokens and tag_text[-2] == inverse_tokens[tag_text[1]]:
         if tag_text[1] == tag_text[2]:
@@ -182,6 +177,9 @@ def parse_tag(tag_text):
             print("Tag text: {}".format(tag_text))
             raise ValueError("Closing token " + tag_text[-2] + " is an inverse token and cannot be repeated.")
 
+    # Also disallow newline within tag_text? Though "split into lines" function should take care of that.
+
+    ###
 
     # Bracket, opening token(s), optionally whitespace, inner content, optionally whitespace, closing token(s), bracket.
     
@@ -190,6 +188,7 @@ def parse_tag(tag_text):
     
     # I think allow one or more opening tokens, one or more closing tokens, and whitespace optional.
     
+    ###
     
     
 
@@ -221,8 +220,6 @@ def parse_tag(tag_text):
     # Again, it depends on simple_tokens vs inverse_tokens.
 """
 
-    pos_left = 0
-    pos_right = len(tag_text) - 1
     
     # tag_text[pos_left] == "["
     # tag_text[pos_right] == "]"
@@ -231,6 +228,9 @@ def parse_tag(tag_text):
     if token in simple_tokens:
         opening_token = token
         closing_token = token
+        
+        pos_left = 0
+        pos_right = len(tag_text) - 1
         
         # Move pos_left forward through continuous opening tokens...
         while pos_left < pos_right:
@@ -263,6 +263,16 @@ def parse_tag(tag_text):
         # Then, tag_text[pos_left+1:pos_right] is inner content.
         # Unless pos_left == pos_right, in which case there is no inner content.
 
+        if pos_left == pos_right:
+            # No inner content
+            return (opening_token, None)
+        
+        else:
+            inner_content = tag_text[pos_left+1:pos_right]
+            return (opening_token, inner_content)
+        
+        
+        
     # Escaped token?
     # Like, [*placeholderincludingasterisk\**]
     
@@ -277,6 +287,31 @@ def parse_tag(tag_text):
     elif token in inverse_tokens:
         opening_token = token
         closing_token = inverse_tokens[token]
+        
+        # Only one opening token, one closing token.
+        # Then check for whitespace.
+        # Stop at the end of whitespace, if any.
+        
+        # Start left-side at opening token.
+        pos_left = 1
+        # Start right-side at closing token.
+        pos_right = len(tag_text) - 2
+        
+        # Skip whitespace.
+        
+        while pos_left < pos_right and tag_text[pos_left + 1] == " ":
+            pos_left += 1
+
+        while pos_right > pos_left and tag_text[pos_right - 1] == " ":
+            pos_right -= 1
+                
+        if pos_left == pos_right:
+            # No inner content
+            return (opening_token, None)
+        
+        else:
+            inner_content = tag_text[pos_left+1:pos_right]
+            return (opening_token, inner_content)
 
         # Special case if [[]], [()], etc? Or require [[ ]], [( )]?
         # I think don't require space.
@@ -288,27 +323,16 @@ def parse_tag(tag_text):
         
         # What if multiple opening or closing tokens?
         # I think don't create tag in that case.
-        
-        
-        
-        
-        
-        # Move pos_left rightward.
-        # Likewise, move pos_right leftward.
-        # Skip whitespace.
-        # Though whitespace is required if there's inner content? If so, don't form tag?
-        
-        # Then, line[pos_left:pos_right+1] is inner content.
-        # Including whitespace surrounding inner content? (make sure it's just inner content.)
-        # (Or trim whitespace later.)
-            
-        # Return tag type, and inner content.
-        # Tag type depends on token.
-        print("Token: " + token)
+        # Or, extra tokens become part of inner content.
+        # Or just return None, so text isn't converted to tag at all.
 
-        else:
-        print("Tag text: {}".format(tag_text))
-        raise ValueError("The character " + opening_token + " is not a valid Markform token in the current spec.")
         
+        
+        
+        
+            
+        # Return token (on which tag type depends), and inner content.
+
+    # If opening token is on neither list
     else:
-        return None
+        return (None, None)
