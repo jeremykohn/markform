@@ -30,7 +30,7 @@ Your name: [_]
 Your email address: [@]
 Your message: [[ ]]
 
-[(Submit message)]
+[(Submit my message)]
 
 [-]
 ```
@@ -40,19 +40,19 @@ Converted to HTML:
 ```
 <form>
   <div>
-    <label for="markform-input-your-name">Your name:</label>
-    <input id="markform-input-your-name" type="text">
+    <label for="markform-text-input-your-name">Your name:</label>
+    <input id="markform-text-input-your-name" type="text">
   </div>
   <div>
-    <label for="markform-input-your-email-address">Your email address:</label>
-    <input id="markform-input-your-email-address" type="email">
+    <label for="markform-text-input-your-email-address">Your email address:</label>
+    <input id="markform-text-input-your-email-address" type="email">
   </div>
   <div>
     <label for="markform-textarea-your-message">Your message:</label>
     <textarea id= markform-textarea-your-message></textarea>
   </div>
   <div>
-    <button id="markform-button-submit-message" type="submit">Submit message</button>
+    <button id="markform-submit-button-submit-message" type="submit">Submit my message</button>
   </div>
 </form>
 ```
@@ -79,18 +79,18 @@ Converted to HTML:
 ```
 <form>
   <div>
-    <label for="markform-input-file-image-to-rescale">Image to rescale:</label>
-    <input id="markform-input-file-image-to-rescale" type="file">
+    <label for="markform-file-input-image-to-rescale">Image to rescale:</label>
+    <input id="markform-file-input-image-to-rescale" type="file">
   </div>
   <div>
-    <label for="markform-input-number-horizontal-resolution">Horizontal resolution:</label>
-    <input id="markform-input-number-horizontal-resolution" type="number">
+    <label for="markform-number-input-horizontal-resolution">Horizontal resolution:</label>
+    <input id="markform-number-input-horizontal-resolution" type="number">
   </div>
   <div>
-    <label for="markform-input-number-vertical-resolution">Vertical resolution:</label>
-    <input id="markform-input-number-vertical-resolution" type="number">
+    <label for="markform-number-input-vertical-resolution">Vertical resolution:</label>
+    <input id="markform-number-input-vertical-resolution" type="number">
   </div>
   <div>
-    <button id="markform-button-upload-image" type="submit">Upload image</button>
+    <button id="markform-submit-button-upload-image" type="submit">Upload image</button>
   </div>
 </form>
