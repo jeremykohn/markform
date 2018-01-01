@@ -164,16 +164,26 @@ def parse_tag(tag_text):
     
     if tag_text[1] in simple_tokens and tag_text[-2] != tag_text[1]:
         print("Tag text: {}".format(tag_text))
-        raise ValueError("Opening token " + tag_text[1] + " requires the same closing token, not " + tag_text[-2]")
+        raise ValueError("Opening token " + tag_text[1] + " requires the same closing token, not " + tag_text[-2])
 
     if tag_text[1] in inverse_tokens and tag_text[-2] != inverse_tokens[tag_text[1]]:
         print("Tag text: {}".format(tag_text))
-        raise ValueError("Opening token " + tag_text[1] + " requires an inverse closing token, not " + tag_text[-2]")
+        raise ValueError("Opening token " + tag_text[1] + " requires the inverse closing token, not " + tag_text[-2])
         
-    ###
+
+        
+
+    # For inverse tokens, repeated opening tokens or repeated closing tokens are not allowed.
+    if tag_text[1] in inverse_tokens and tag_text[-2] == inverse_tokens[tag_text[1]]:
+        if tag_text[1] == tag_text[2]:
+            print("Tag text: {}".format(tag_text))
+            raise ValueError("Opening token " + tag_text[1] + " is an inverse token and cannot be repeated.")            
+        if tag_text[-2] == tag_text[-3]:
+            print("Tag text: {}".format(tag_text))
+            raise ValueError("Closing token " + tag_text[-2] + " is an inverse token and cannot be repeated.")
+
+
     # Bracket, opening token(s), optionally whitespace, inner content, optionally whitespace, closing token(s), bracket.
-    ###
-    
     
     # Allow [____ Inner content _]? Or [___ Inner content ___]?
     # Or just allow [_], [___], [_   _], [_ Inner content _] and throw error otherwise?
@@ -277,7 +287,7 @@ def parse_tag(tag_text):
         # And then skip whitespace.
         
         # What if multiple opening or closing tokens?
-        # I think don't form tag.
+        # I think don't create tag in that case.
         
         
         
