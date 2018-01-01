@@ -24,7 +24,9 @@ def parse_element(line):
 
     # Initial conditions.
     opening_token = None
-    closing_token = None    
+    closing_token = None
+    left_bracket_index = None
+    right_bracket_index = None
 
     # Types of Markform tokens.
     # Move these to class variable?
@@ -61,35 +63,57 @@ def parse_element(line):
             
             
     # Get content after initial spaces, before opening bracket.
-
+    # Allow any number of spaces, including zero spaces, before opening bracket.
+    # Trim whitespace afterwards?
     
     # Search for opening bracket followed by opening token.
     # If found, get opening token and (based on opening token) closing token.
-    while pos + 1 < len(line):
-        if line[pos] == "[":
+    
+    # Remember to replace simple_tokens with same_tokens?
+    # Or symmetric_tokens?
+    
+    while pos < len(line):
+        # Current character.
+        current_character = line[pos]
+        # Previous character, if it exists.
+        if pos - 1 >= 0:
+            previous_character = line[pos - 1]
+        else:
+            previous_character = None
+        # Next character, if it exists.
+        if pos + 1 < len(line):
             next_character = line[pos + 1]
+        else:
+            next_character = None
+        # Check for an unescaped opening bracket followed by a Markform token.
+        if current_character == "[" and previous_character != "\\":
+            # Simple opening tokens (for same-token tags)
             if next_character in simple_tokens:
                 opening_token = next_character
                 closing_token = opening_token
                 break
+            # Inverse opening token (for inverse-token tags)
             elif next_character in inverse_tokens:
                 opening_token = next_character
                 closing_token = inverse_tokens[opening_token]
                 break
-        # If not found, keep moving.
+        # If not found, continue parsing.
         pos += 1
 
+    # Initialize variables.    
+    
     # If there is an opening token, search for a tag closing, 
     # which is a closing token followed by a closing bracket.
     if opening_token:
         pos_left = pos
-        pos_right = pos
-        # Move pos_right to find closing bracket preceded by closing token(s?)
-        while pos_right + 1 < len(line):
-            if line[pos_right] == closing_token and line[pos_right + 1] == "]":
-                # Found tag closing.
+        pos_right = pos + 1
+        # Move pos_right to find closing bracket preceded by closing token.
+        while pos_right < len(line):
+            if line[pos_right] == "]" and line[pos_right - 1] == closing_token:
+                # Found end of tag.
+                # Get tag's position.
                 left_bracket_index = pos_left
-                right_bracket_index = pos_right + 1
+                right_bracket_index = pos_right
                 break
        
     if left_bracket_index and right_bracket_index:
@@ -134,6 +158,11 @@ def parse_tag(tag_text):
         print("Tag text: {}".format(tag_text))
         raise ValueError("Tag text must begin with '[' and end with ']'.")
     
+    
+    # Bracket, opening token(s), optionally whitespace, inner content, optionally whitespace, closing token(s), bracket.
+    
+    
+    
 
     # Allow [____ Inner content _]? Or [___ Inner content ___]?
     # Or just allow [_], [___], [_   _], [_ Inner content _] and throw error otherwise?
@@ -158,8 +187,7 @@ def parse_tag(tag_text):
     if tag_text[-2] != closing_token:
         print("Tag text: {}".format(tag_text))
         raise ValueError("Tag must include both opening token and closing token.")
-        
-        
+    
     # Continue parsing.
     # Again, it depends on simple_tokens vs inverse_tokens.
    
