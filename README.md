@@ -19,18 +19,19 @@ A quick shorthand for creating HTML forms, inspired by [Markdown](https://daring
 
 ## Example usage
 
-### Website feedback form
+### Sign-up form example
 
 Markform:
 
 ```
 [+]
 
-Your name: [_]
-Your email address: [@]
-Your message: [[ ]]
+First name: [_]
+Last name: [_]
+Email address: [@]
+Choose a password: [*]
 
-[(Submit my message)]
+[(Create my account)]
 
 [-]
 ```
@@ -40,19 +41,61 @@ Converted to HTML:
 ```
 <form>
   <div>
-    <label for="markform-text-input-your-name">Your name:</label>
-    <input id="markform-text-input-your-name" type="text">
+    <label for="markform-text-input-first-name">First name:</label>
+    <input id="markform-text-input-first-name" type="text">
   </div>
   <div>
-    <label for="markform-text-input-your-email-address">Your email address:</label>
-    <input id="markform-text-input-your-email-address" type="email">
+    <label for="markform-text-input-last-name">Last name:</label>
+    <input id="markform-text-input-last-name" type="text">
   </div>
   <div>
-    <label for="markform-textarea-your-message">Your message:</label>
-    <textarea id= markform-textarea-your-message></textarea>
+    <label for="markform-text-input-email-address">Email address:</label>
+    <input id="markform-text-input-email-address" type="email">
   </div>
   <div>
-    <button id="markform-submit-button-submit-message" type="submit">Submit my message</button>
+    <label for="markform-text-input-choose-a-password">Choose a password:</label>
+    <input id="markform-text-input-choose-a-password" type="password">
+  </div>
+  <div>
+    <button id="markform-submit-button-create-my-account" type="submit">Create my account</button>
   </div>
 </form>
 ```
+
+### Upload image
+
+Markform:
+
+```
+[+]
+
+Image to rescale: [^]
+
+Horizontal resolution: [$]
+Vertical resolution: [$]
+
+[(Upload image)]
+
+[-]
+```
+
+Converted to HTML:
+
+```
+<form>
+  <div>
+    <label for="markform-file-input-image-to-rescale">Image to rescale:</label>
+    <input id="markform-file-input-image-to-rescale" type="file">
+  </div>
+  <div>
+    <label for="markform-number-input-horizontal-resolution">Horizontal resolution:</label>
+    <input id="markform-number-input-horizontal-resolution" type="number">
+  </div>
+  <div>
+    <label for="markform-number-input-vertical-resolution">Vertical resolution:</label>
+    <input id="markform-number-input-vertical-resolution" type="number">
+  </div>
+  <div>
+    <button id="markform-submit-button-upload-image" type="submit">Upload image</button>
+  </div>
+</form>
