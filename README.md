@@ -49,12 +49,12 @@ Converted to HTML:
     <input id="markform-text-input-last-name" type="text">
   </div>
   <div>
-    <label for="markform-text-input-email-address">Email address:</label>
-    <input id="markform-text-input-email-address" type="email">
+    <label for="markform-email-input-email-address">Email address:</label>
+    <input id="markform-email-input-email-address" type="email">
   </div>
   <div>
-    <label for="markform-text-input-choose-a-password">Choose a password:</label>
-    <input id="markform-text-input-choose-a-password" type="password">
+    <label for="markform-password-input-choose-a-password">Choose a password:</label>
+    <input id="markform-password-input-choose-a-password" type="password">
   </div>
   <div>
     <button id="markform-submit-button-create-my-account" type="submit">Create my account</button>
