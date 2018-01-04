@@ -127,7 +127,9 @@ def parse_element(line):
             # Other methods will parse tag itself, get token, get inner content, 
             # combine label with inner content to create HTMl tags, etc.
     else:
-        return None
+        # No Markform tag.
+        # Thus, no pre-tag, tag, or post-tag text.
+        return (pre_tag_text, tag_text, post_tag_text)
 
     
 ######
@@ -255,7 +257,8 @@ def parse_tag(tag_text):
             inner_content = tag_text[pos_left+1:pos_right]
             return (opening_token, inner_content)
 
-    # If opening token is on neither list
+    # If opening token is on neither list:
+    # Return opening token and inner content
     else:
         return (None, None)
 
