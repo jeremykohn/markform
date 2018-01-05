@@ -3,19 +3,18 @@
 
 # "parse_element()", "parse_line()", "split_element()", or "split_line()"
 
-
 # Or, 'get indices of pre, tag, and post'?
-def parse_element(line):
 
-    # Validate input.
-    # Should be text without "\n"
+def validate_line(line):
+    # Input should be a one-line string.
     
     if type(line) is not str:
-        raise ValueError("Markdown element must be a string")
-    
+        raise ValueError("Element must be a string.")
     if "\n" in line:
-        raise ValueError("Markdown element cannot include newline")
-    
+        raise ValueError("Element must include only one line, cannot include newline.")
+
+def parse_element(line):
+
     # Components to return.
     tag_type = None
     pre_tag_text = ""
