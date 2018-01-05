@@ -134,16 +134,24 @@ def parse_element(line):
     
 ######
 
-
-def parse_tag(tag_text):
-    # Return opening token (which determines tag type), and also text between tokens (inner content).
-    
+def validate_tag(tag_text):
     # Validate input.
     # TODO: Change this so instead of raising error, it just keeps the text as is and doesn't consider it a tag.
     # Also, write test cases like `[[[ ]]]` to see what should happen.
     # I think `[[ ]]]` would turn into <tag>]
     # And `[[[ ]]` would just be [[[ ]]
     
+    # For some types of Markform tags, the opening and closing tokens are the same character.
+    simple_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
+        
+    # For other Markform tags, the closing token is the inverse of the opening token.
+    inverse_tokens = {
+        "(": ")",
+        "[": "]",            
+        "{": "}",
+        "|": "|"
+    }
+
     if type(tag_text) is not str:
         print("Tag text: {}".format(tag_text))
         raise ValueError("Tag must be a string.")
@@ -155,33 +163,69 @@ def parse_tag(tag_text):
         print("Tag text: {}".format(tag_text))
         raise ValueError("Tag text must be at least three characters.")
     
-    if tag_text[0] != "[" or tag_text[-1] != "]":
+    # Validate opening and closing brackets.
+
+    first_char = tag_text[0]
+    last_char = tag_text[-1]
+
+    if first_char != "[" or last_char != "]":
         print("Tag text: {}".format(tag_text))
         raise ValueError("Tag text must begin with '[' and end with ']'.")
     
-    if tag_text[1] not in simple_tokens and tag_text[1] not in inverse_tokens:
-        print("Tag text: {}".format(tag_text))
-        raise ValueError("The character " + tag_text[1] + " is not a valid Markform token in the current spec.")
-    
-    if tag_text[1] in simple_tokens and tag_text[-2] != tag_text[1]:
-        print("Tag text: {}".format(tag_text))
-        raise ValueError("Opening token " + tag_text[1] + " requires the same closing token, not " + tag_text[-2])
+    # Validate opening and closing tokens.
 
-    if tag_text[1] in inverse_tokens and tag_text[-2] != inverse_tokens[tag_text[1]]:
+    second_char = tag_text[1]
+    second_last_char = tag_text[-2]    
+
+    # If simple token: Tag must have the same opening and closing token.
+    if second_char in simple_tokens:
+        if second_last_char != opening_token:
+            print("Tag text: {}".format(tag_text))
+            raise ValueError("Opening token " + second_char + " requires the same closing token, not " + second_last_char)
+
+    # If inverse tokens: Closing token must be inverse of opening token.
+    elif second_char in inverse_tokens:
+        if second_last_char != inverse_tokens(second_char):
+            print("Tag text: {}".format(tag_text))
+            raise ValueError("Opening token " + second_char + " requires the inverse closing token, not " + second_last_char)
+
+    # If second character is not a simple token or an inverse token, then tag is invalid.
+    else:
         print("Tag text: {}".format(tag_text))
-        raise ValueError("Opening token " + tag_text[1] + " requires the inverse closing token, not " + tag_text[-2])
+        raise ValueError("The character " + second_char + " is not a valid Markform token in the current spec.")
     
-    # For inverse tokens, repeated opening tokens or repeated closing tokens are not allowed.
-    if tag_text[1] in inverse_tokens and tag_text[-2] == inverse_tokens[tag_text[1]]:
-        if tag_text[1] == tag_text[2]:
-            print("Tag text: {}".format(tag_text))
-            raise ValueError("Opening token " + tag_text[1] + " is an inverse token and cannot be repeated.")            
-        if tag_text[-2] == tag_text[-3]:
-            print("Tag text: {}".format(tag_text))
-            raise ValueError("Closing token " + tag_text[-2] + " is an inverse token and cannot be repeated.")
 
     # Also disallow newline within tag_text? Though "split into lines" function should take care of that.
 
+    # Parse for non-allowed components.
+    pos = 0
+    while pos < len(tag_text):
+        if tag_text[pos] == "\n":
+            print("Tag text: {}".format(tag_text))
+            raise ValueError("Tag cannot contain newline.")
+
+    # Also parse for early closing? Like, [+ Inner text content +] More content +]
+    # Not here, I think. Just validate the basics. 
+    # And provide more flexibility -- spec might change to parse inward, not forward.
+    
+    
+######
+
+
+def parse_tag(tag_text):
+    # Return opening token (which determines tag type), and also text between tokens (inner content).
+    
+    # For some types of Markform tags, the opening and closing tokens are the same character.
+    simple_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
+        
+    # For other Markform tags, the closing token is the inverse of the opening token.
+    inverse_tokens = {
+        "(": ")",
+        "[": "]",            
+        "{": "}",
+        "|": "|"
+    }
+    
     if token in simple_tokens:
         opening_token = token
         closing_token = token
