@@ -134,11 +134,6 @@ def parse_element(line):
 ######
 
 def validate_tag(tag_text):
-    # Validate input.
-    # TODO: Change this so instead of raising error, it just keeps the text as is and doesn't consider it a tag.
-    # Also, write test cases like `[[[ ]]]` to see what should happen.
-    # I think `[[ ]]]` would turn into <tag>]
-    # And `[[[ ]]` would just be [[[ ]]
     
     # For some types of Markform tags, the opening and closing tokens are the same character.
     simple_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
@@ -194,9 +189,7 @@ def validate_tag(tag_text):
         raise ValueError("The character " + second_char + " is not a valid Markform token in the current spec.")
     
 
-    # Also disallow newline within tag_text? Though "split into lines" function should take care of that.
-
-    # Parse for non-allowed components.
+    # Also disallow newline within tag_text. (Though that should be taken care of already, when splitting Markform text into lines.)
     pos = 0
     while pos < len(tag_text):
         if tag_text[pos] == "\n":
