@@ -1,5 +1,4 @@
-# Splits Markform element into pre-tag, post-tag, tag type, and tag inner content.
-# Or returns None if line is not a Markform element.
+# Splits Markform element into pre-tag, tag, and post-tag.
 
 def validate_element(line):
     # Input should be a one-line string.
@@ -8,8 +7,8 @@ def validate_element(line):
         raise ValueError("Element must be a string.")
     if "\n" in line:
         raise ValueError("Element must include only one line, cannot include newline.")
-
-
+    # Also see if tag is included? 
+    
 def parse_element(line):
 
     # Components to return.
@@ -38,8 +37,6 @@ def parse_element(line):
         "|": "|"
     }
     
-    # Ready.
-    
     # Current position. Start at beginning of line.
     pos = 0
     
@@ -56,17 +53,9 @@ def parse_element(line):
             break
         # Step forward.
         pos += 1
-            
-            
-    # Get content after initial spaces, before opening bracket.
-    # Allow any number of spaces, including zero spaces, before opening bracket.
-    # Trim whitespace afterwards?
-    
+
     # Search for opening bracket followed by opening token.
     # If found, get opening token and (based on opening token) closing token.
-    
-    # Remember to replace "simple_tokens" with "same_tokens"?
-    # Or "symmetric_tokens"?
     
     while pos < len(line):
         # Current character.
@@ -114,11 +103,12 @@ def parse_element(line):
        
     if left_bracket_index and right_bracket_index:
         # Divide string and return each.
-        # Or, return indices and let other function divide string.
         pre_tag_text = line[:left_bracket_index]
         tag_text = line[left_bracket_index:right_bracket_index+1]
         post_tag_text = line[right_bracket_index+1:]
+        
         return (pre_tag_text, tag_text, post_tag_text)
+    
             # Our work here is done.
             # Other methods will parse tag itself, get token, get inner content, 
             # combine label with inner content to create HTMl tags, etc.
