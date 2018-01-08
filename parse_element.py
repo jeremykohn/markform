@@ -23,6 +23,9 @@ def parse_element(line):
     # For some types of Markform tags, the opening and closing tokens are the same character.
     simple_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
         
+
+    # print(simple_tokens)
+
     # For other Markform tags, the closing token is the inverse of the opening token.
     inverse_tokens = {
         "(": ")",
@@ -31,15 +34,23 @@ def parse_element(line):
         "|": "|"
     }
     
+    # print(inverse_tokens)
+
     # Current position. Start at beginning of line.
     pos = 0
+
+    # print(pos)
 
     # Search for opening bracket followed by opening token.
     # If found, get opening token and (based on opening token) closing token.
     
     while pos < len(line):
+
+        # print(pos)
+
         # Current character.
         current_character = line[pos]
+        # print(current_character)
         
         # Previous character, if it exists.
         if pos - 1 >= 0:
@@ -69,26 +80,44 @@ def parse_element(line):
         # If closing token not found, continue parsing.
         pos += 1
 
+    # print("opening_token")
+    # print(opening_token)
+
     # If there is an opening token, search for a tag closing, 
     # which is a closing token followed by a closing bracket.
     if opening_token:
+        # print(pos)
         pos_left = pos
         pos_right = pos + 1
+
+        # print("Pos left and right")
+        # print(pos_left)
+        # print(pos_right)
         # Move pos_right to find closing bracket preceded by closing token.
-        while pos_right < len(line):
-            if line[pos_right] == "]" and line[pos_right - 1] == closing_token:
+        while pos_right + 1 < len(line):
+            # print("pos_right")
+            # print(pos_right)
+            # print(line[pos_right])
+            # print(line[pos_right])
+            if line[pos_right] == closing_token and line[pos_right + 1] == "]":
                 tag_complete = True
+                # print("Found end of tag.")
                 # Found end of tag.
                 # Get tag's position.
                 left_bracket_index = pos_left
                 right_bracket_index = pos_right
+                # print("LEft and right bracket indices")
+                # print(left_bracket_index)
+                # print(right_bracket_index)
                 break
-       
+
+            pos_right += 1
+
     if tag_complete:
         # Divide string and return each section.
         pre_tag_text = line[:left_bracket_index]
-        tag_text = line[left_bracket_index:right_bracket_index+1]
-        post_tag_text = line[right_bracket_index+1:]
+        tag_text = line[left_bracket_index:right_bracket_index+2]
+        post_tag_text = line[right_bracket_index+2:]
         return (pre_tag_text, tag_text, post_tag_text)
     else:
         # No Markform tag in this line.
@@ -99,3 +128,44 @@ def parse_element(line):
     # trim whitespace around tag, get inner content, 
     # combine label with inner content to create HTML tags, 
     # etc.
+
+
+
+test_cases = [
+    # None, 0, 1, 2.3, True, False, 
+    "",
+    "[+]",
+    " [+] ",
+    "  [+++] ",
+    "Form [+] start",
+    "Not an element",
+    "Not an [+ element",
+    "Yes [+   +] an element",
+    "Yes [+  +]+] an element",
+    "Yes [+++ + all sorts of text in here++++] an element",
+    "Element with pre-text only [+   +]",
+    "[+    +] and post-text only."
+
+]
+
+
+
+
+inverse_test_cases = [
+    # None, 0, 1, 2.3, True, False, 
+    "",
+    "Not an element",
+    "Not an [[ element",
+    "Not an [[] element",
+    "Textarea [[]] element",
+    "Yes [[+   +]] an element",
+    "Not [[+   +] ] an element",
+    "Not a valid element [[[ though that will be taken care of later]]]",
+    "Yes [[{[ all sorts of text in here  }]}]] an element"
+]
+
+
+for line in test_cases:
+    validate_element(line)
+    print(parse_element(line))
+
