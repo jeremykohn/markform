@@ -17,9 +17,9 @@ A quick shorthand for creating HTML forms, inspired by [Markdown](https://daring
 | Submit button | `[( )]` | `<button type="submit">` |
 | Form end | `[-]` | `</form>` |
 
-## Example usage
+## Example Usage
 
-### Sign-up form example
+### Sign up for website account
 
 Markform:
 
@@ -62,14 +62,14 @@ Converted to HTML:
 </form>
 ```
 
-### Upload image
+### Upload and rescale image
 
 Markform:
 
 ```
 [+]
 
-Image to rescale: [^]
+Image file to rescale: [^]
 
 Horizontal resolution: [$]
 Vertical resolution: [$]
