@@ -39,20 +39,6 @@ def parse_element(line):
     
     # Current position. Start at beginning of line.
     pos = 0
-    
-    # If line begins with four or more spaces, or a tab, not a Markform element.
-    # If line begins with fewer than four spaces, ignore initial spaces.
-    initial_spaces = 0
-    while pos < len(line):
-        if pos == " ":
-            initial_spaces += 1
-        elif pos == "\t":
-            # Line is not a Markform element if it has a tab before content.
-            return None
-        else:
-            break
-        # Step forward.
-        pos += 1
 
     # Search for opening bracket followed by opening token.
     # If found, get opening token and (based on opening token) closing token.
