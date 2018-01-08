@@ -12,14 +12,14 @@ def validate_element(line):
 def parse_element(line):
 
     # Components to return.
-    tag_type = None
     pre_tag_text = ""
-    tag_inner_content = ""
+    tag_text = ""
     post_tag_text = ""
 
     # Initial conditions.
     opening_token = None
     closing_token = None
+    tag_complete = False
     left_bracket_index = None
     right_bracket_index = None
 
@@ -60,16 +60,19 @@ def parse_element(line):
     while pos < len(line):
         # Current character.
         current_character = line[pos]
+        
         # Previous character, if it exists.
         if pos - 1 >= 0:
             previous_character = line[pos - 1]
         else:
             previous_character = None
+            
         # Next character, if it exists.
         if pos + 1 < len(line):
             next_character = line[pos + 1]
         else:
             next_character = None
+            
         # Check for an unescaped opening bracket followed by a Markform token.
         if current_character == "[" and previous_character != "\\":
             # Simple opening tokens (for same-token tags)
@@ -82,11 +85,10 @@ def parse_element(line):
                 opening_token = next_character
                 closing_token = inverse_tokens[opening_token]
                 break
-        # If not found, continue parsing.
+                
+        # If closing token not found, continue parsing.
         pos += 1
 
-    # Initialize variables.    
-    
     # If there is an opening token, search for a tag closing, 
     # which is a closing token followed by a closing bracket.
     if opening_token:
@@ -95,24 +97,24 @@ def parse_element(line):
         # Move pos_right to find closing bracket preceded by closing token.
         while pos_right < len(line):
             if line[pos_right] == "]" and line[pos_right - 1] == closing_token:
+                tag_complete = True
                 # Found end of tag.
                 # Get tag's position.
                 left_bracket_index = pos_left
                 right_bracket_index = pos_right
                 break
        
-    if left_bracket_index and right_bracket_index:
-        # Divide string and return each.
+    if tag_complete:
+        # Divide string and return each section.
         pre_tag_text = line[:left_bracket_index]
         tag_text = line[left_bracket_index:right_bracket_index+1]
         post_tag_text = line[right_bracket_index+1:]
-        
-        return (pre_tag_text, tag_text, post_tag_text)
     
-            # Our work here is done.
-            # Other methods will parse tag itself, get token, get inner content, 
-            # combine label with inner content to create HTMl tags, etc.
-    else:
-        # No Markform tag.
-        # Thus, no pre-tag, tag, or post-tag text.
-        return (pre_tag_text, tag_text, post_tag_text)
+    # Return whatever found. Might be empty strings.
+    return (pre_tag_text, tag_text, post_tag_text)
+    
+    # Our work here is done.
+    # Other methods will parse tag itself, get token, 
+    # trim whitespace around tag, get inner content, 
+    # combine label with inner content to create HTML tags, 
+    # etc.
