@@ -217,12 +217,30 @@ def validate_tag(tag_text):
 def parse_tag(tag_text):
     # Return opening token (which determines tag type), and also text between tokens (inner content).
     
+    # Types of Markform tokens.
+    # Move these to class variable?
+    
+    # For some types of Markform tags, the opening and closing tokens are the same character.
+    simple_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
+        
+    # For other Markform tags, the closing token is the inverse of the opening token.
+    inverse_tokens = {
+        "(": ")",
+        "[": "]",            
+        "{": "}",
+        "|": "|"
+    }
+
+
     opening_token = tag_text[1]
 
-    if token in simple_tokens:
-        opening_token = token
+    if opening_token in simple_tokens:
         closing_token = token 
+    elif token in inverse_tokens:
+        closing_token = inverse_tokens[opening_token]
+    # else? Validation should take care of that.
 
+    if opening_token in simple_tokens:
         pos_left = 0
         pos_right = len(tag_text) - 1
         
@@ -265,9 +283,7 @@ def parse_tag(tag_text):
             inner_content = tag_text[pos_left+1:pos_right]
             return (opening_token, inner_content)
 
-    elif token in inverse_tokens:
-        opening_token = token
-        closing_token = inverse_tokens[token]
+    elif opening_token in inverse_tokens:
         
         # Only one opening token, one closing token.
         # Then check for whitespace.
