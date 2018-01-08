@@ -1,17 +1,15 @@
 # Splits Markform element into pre-tag, tag, and post-tag.
 # Or return None if the line is not a Markform element.
 
+# Validate input: A one-line string. No newlines.
 def validate_element(line):
-    # Input should be a one-line string.
-    
     if type(line) is not str:
         raise ValueError("Element must be a string.")
     if "\n" in line:
         raise ValueError("Element must include only one line, cannot include newline.")
-    # Also see if tag is included? 
-    
-def parse_element(line):
 
+        
+def parse_element(line):
     # Initial conditions.
     opening_token = None
     closing_token = None
