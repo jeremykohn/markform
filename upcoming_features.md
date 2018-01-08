@@ -14,7 +14,7 @@ Select one option at the most (default is "Second"):
 [{ ( ) First (o) Second ( ) Third }]
 ```
 
-## Toggle
+## Select / Dropdown list
 
 Select one option (default is "Third"): 
 ```
