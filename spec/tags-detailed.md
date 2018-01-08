@@ -9,19 +9,19 @@ A Markform tag is comprised of, in sequence:
 
 A Markform tag is a sequence of characters, within a single line of text, that is converted to an HTML form element.
 
-### Sequence of characters
+### Overall structure
+
+A Markform tag consists of these characters, in this order:
 
 1. A tag opening, consisting of:
     - An opening bracket: `[`
     - An opening token: `+`, `_`, `@`, `*`, `$`, `%`, `^`, `(`, `[`, `{`, or `-`
-2. Inner content, if any
+2. Inner content, if any, consisting of text that does not close the tag
 3. A tag closing, consisting of:
     - A closing token: `+`, `_`, `@`, `*`, `$`, `%`, `^`, `)`, `]`, `}`, or `-`
     - A closing bracket: `]`
 
-## Detailed rules of forming tags
-
-### Components of a Markform tag
+### Detailed structure
 
 1. Tag opening
     1. Opening bracket: The character `[`
