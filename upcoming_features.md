@@ -18,5 +18,5 @@ Select one option at the most (default is "Second"):
 
 Select one option (default is "Third"): 
 ```
-[{| First | Second || Third ||}]
+[{ First | Second || Third }]
 ```
