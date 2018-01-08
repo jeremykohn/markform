@@ -22,9 +22,6 @@ def parse_element(line):
     
     # For some types of Markform tags, the opening and closing tokens are the same character.
     simple_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
-        
-
-    # print(simple_tokens)
 
     # For other Markform tags, the closing token is the inverse of the opening token.
     inverse_tokens = {
@@ -34,15 +31,12 @@ def parse_element(line):
         "|": "|"
     }
     
-    # print(inverse_tokens)
-
-    # Current position. Start at beginning of line.
-    pos = 0
-
-    # print(pos)
 
     # Search for opening bracket followed by opening token.
     # If found, get opening token and (based on opening token) closing token.
+
+    # Current position. Start at beginning of line.
+    pos = 0
     
     while pos < len(line):
 
@@ -50,7 +44,6 @@ def parse_element(line):
 
         # Current character.
         current_character = line[pos]
-        # print(current_character)
         
         # Previous character, if it exists.
         if pos - 1 >= 0:
@@ -80,35 +73,20 @@ def parse_element(line):
         # If closing token not found, continue parsing.
         pos += 1
 
-    # print("opening_token")
-    # print(opening_token)
-
     # If there is an opening token, search for a tag closing, 
     # which is a closing token followed by a closing bracket.
     if opening_token:
-        # print(pos)
         pos_left = pos
         pos_right = pos + 1
 
-        # print("Pos left and right")
-        # print(pos_left)
-        # print(pos_right)
         # Move pos_right to find closing bracket preceded by closing token.
         while pos_right + 1 < len(line):
-            # print("pos_right")
-            # print(pos_right)
-            # print(line[pos_right])
-            # print(line[pos_right])
             if line[pos_right] == closing_token and line[pos_right + 1] == "]":
                 tag_complete = True
-                # print("Found end of tag.")
                 # Found end of tag.
                 # Get tag's position.
                 left_bracket_index = pos_left
                 right_bracket_index = pos_right
-                # print("LEft and right bracket indices")
-                # print(left_bracket_index)
-                # print(right_bracket_index)
                 break
 
             pos_right += 1
@@ -147,9 +125,6 @@ test_cases = [
     "[+    +] and post-text only."
 
 ]
-
-
-
 
 inverse_test_cases = [
     # None, 0, 1, 2.3, True, False, 
