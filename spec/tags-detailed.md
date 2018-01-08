@@ -60,7 +60,7 @@ In an inverse-token tag, the closing token characer is the inverse of the openin
 6. Closing token: A character that is the inverse of the opening-token character
 3. Closing bracket: The character `]`
 
-##### Inverse-token tags with inner content
+#### Inverse-token tags with inner content
 
 1. Opening bracket: The character `[`
 2. Opening token: An inverse-token character
