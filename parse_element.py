@@ -144,3 +144,7 @@ for line in test_cases:
     validate_element(line)
     print(parse_element(line))
 
+    
+for line in inverse_test_cases:
+    validate_element(line)
+    print(parse_element(line))
