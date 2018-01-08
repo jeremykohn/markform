@@ -3,7 +3,10 @@
 
 # "parse_element()", "parse_line()", "split_element()", or "split_line()"
 
+
 # Or, 'get indices of pre, tag, and post'?
+
+
 
 def validate_line(line):
     # Input should be a one-line string.
@@ -12,6 +15,7 @@ def validate_line(line):
         raise ValueError("Element must be a string.")
     if "\n" in line:
         raise ValueError("Element must include only one line, cannot include newline.")
+
 
 def parse_element(line):
 
@@ -134,23 +138,28 @@ def parse_element(line):
 ######
 
 def validate_tag(tag_text):
+    # Validate input.
+    # TODO: Change this so instead of raising error, it just keeps the text as is and doesn't consider it a tag.
+    # Also, write test cases like `[[[ ]]]` to see what should happen.
+    # I think `[[ ]]]` would turn into <tag>]
+    # And `[[[ ]]` would just be [[[ ]]
     
-    # For some types of Markform tags, the opening and closing tokens are the same character.
-    simple_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
-        
-    # For other Markform tags, the closing token is the inverse of the opening token.
+    # Another validation:
+    # No closing bracket/corresponsidng token in between.
+    # Or, assume that's already the input?
+    # Would need to parse for it.
+
+    simple_tokens = []
+
     inverse_tokens = {
-        "(": ")",
-        "[": "]",            
-        "{": "}",
-        "|": "|"
+
     }
 
     if type(tag_text) is not str:
         print("Tag text: {}".format(tag_text))
         raise ValueError("Tag must be a string.")
     
-    if tag_text = "":
+    if tag_text == "":
         raise ValueError("Tag text cannot be empty.")
 
     if len(tag_text) < 3:
@@ -189,7 +198,9 @@ def validate_tag(tag_text):
         raise ValueError("The character " + second_char + " is not a valid Markform token in the current spec.")
     
 
-    # Also disallow newline within tag_text. (Though that should be taken care of already, when splitting Markform text into lines.)
+    # Also disallow newline within tag_text? Though "split into lines" function should take care of that.
+
+    # Parse for non-allowed components.
     pos = 0
     while pos < len(tag_text):
         if tag_text[pos] == "\n":
@@ -199,33 +210,23 @@ def validate_tag(tag_text):
     # Also parse for early closing? Like, [+ Inner text content +] More content +]
     # Not here, I think. Just validate the basics. 
     # And provide more flexibility -- spec might change to parse inward, not forward.
-    
-    
-######
+
+
 
 
 def parse_tag(tag_text):
     # Return opening token (which determines tag type), and also text between tokens (inner content).
     
-    # For some types of Markform tags, the opening and closing tokens are the same character.
-    simple_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
-        
-    # For other Markform tags, the closing token is the inverse of the opening token.
-    inverse_tokens = {
-        "(": ")",
-        "[": "]",            
-        "{": "}",
-        "|": "|"
-    }
-    
+    opening_token = tag_text[1]
+
     if token in simple_tokens:
         opening_token = token
-        closing_token = token
-        
+        closing_token = token 
+
         pos_left = 0
         pos_right = len(tag_text) - 1
         
-        # Move pos_left forward through continuous opening tokens...
+        # Move pos_left forward through continuous opening tokens.
         while pos_left < pos_right:
             if tag_text[pos_left + 1] == opening_token:
                 pos_left += 1
@@ -297,52 +298,3 @@ def parse_tag(tag_text):
     # Return opening token and inner content
     else:
         return (None, None)
-
-    
-
-    ###
-
-    # Tag format:
-    # Bracket, opening token(s), optionally whitespace, inner content, optionally whitespace, closing token(s), bracket.
-    
-    # Tag format for simple tokens:
-    # Bracket, one or more opening tokens, optionally whitespace, inner content, optionally whitespace, one or more closing tokens, bracket. 
-    
-    # Tag format for inverse tokens:
-    # Bracket, one opening token, optionally whitespace, inner content, optionally whitespace, one closing token, bracket.
-    
-    ###
-    
-    # Allow [____ Inner content _]? Or [___ Inner content ___]?
-    # Or just allow [_], [___], [_   _], [_ Inner content _] and throw error otherwise?
-    
-    # I think allow one or more opening tokens, one or more closing tokens, and whitespace optional.
-
-    ###
-        
-    # Escaped token?
-    # Like, [*placeholderincludingasterisk\**]
-    
-    # No, require a space in between.
-    # Like, [*placeholderincludingasterisk* *]
-    
-    # However, when parsing initially, should allow escaping brackets.
-    
-    ###
-    
-    # Special case if [[]], [()], etc? Or require [[ ]], [( )]?
-    # I think don't require space.
-
-    # No multiple opening tokens allowed if the tag has inverse tokens.
-
-    # Should be only one opening token, one closing token.
-    # And then skip whitespace.
-
-    # What if multiple opening or closing tokens?
-    # I think don't create tag in that case.
-    # Or, extra tokens become part of inner content.
-    # Or just return None, so text isn't converted to tag at all.
-
-    # TODO: Write all these rules into the spec.
-
-    # TODO: Write the validations into the API -- specify input and output formats (and requirements).
