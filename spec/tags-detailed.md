@@ -2,7 +2,7 @@
 
 ### Definition
 
-A Markform tag is a sequence of characters, within a single line of text, that is converted to an HTML form element.
+A Markform tag is a sequence of characters, within a single line of text, that represents a specified type of input field or other form element.
 
 ### Overall tag structure
 
