@@ -238,7 +238,6 @@ def parse_tag(tag_text):
         closing_token = token 
     elif token in inverse_tokens:
         closing_token = inverse_tokens[opening_token]
-    # else? Validation should take care of that.
 
     if opening_token in simple_tokens:
         pos_left = 0
@@ -250,27 +249,16 @@ def parse_tag(tag_text):
                 pos_left += 1
             else:
                 break
-        # ...and then through continuous whitespace.
-        while pos_left < pos_right:
-            if tag_text[pos_left + 1] == " ":
-                pos_left += 1
-            else:
-                break
-        # pos_left is now at rightmost opening token, or rightmost whitespace charactr if there is whitespace.
+        # Now pos_left is at rightmost opening token.
 
-        # Move pos_right backward through continous closing tokens...
+        # Move pos_right backward through continous closing tokens.
         while pos_right > pos_left:
             if tag_text[pos_right - 1] == closing_token:
                 pos_right -= 1
             else:
                 break
-        # ...and then through continous whitespace.
-        while pos_right > pos_left:
-            if tag_text[pos_right - 1] == " ":
-                pos_right -= 1
-            else:
-                break
-        # pos_right is now at leftmost closing token, or leftmost whitespace character if there is whitespace.
+        # Now pos_right is at leftmost closing token, 
+        # or at pos_right if the "opening" and "closing" tokens intersect.
         
         # Then, tag_text[pos_left+1:pos_right] is inner content.
         # Unless pos_left == pos_right, in which case there is no inner content.
@@ -278,7 +266,6 @@ def parse_tag(tag_text):
         if pos_left == pos_right:
             # No inner content
             return (opening_token, None)
-        
         else:
             inner_content = tag_text[pos_left+1:pos_right]
             return (opening_token, inner_content)
@@ -286,31 +273,26 @@ def parse_tag(tag_text):
     elif opening_token in inverse_tokens:
         
         # Only one opening token, one closing token.
-        # Then check for whitespace.
-        # Stop at the end of whitespace, if any.
-        
+
         # Start left-side at opening token.
         pos_left = 1
         # Start right-side at closing token.
         pos_right = len(tag_text) - 2
-        
-        # Skip whitespace.
-        
-        while pos_left < pos_right and tag_text[pos_left + 1] == " ":
-            pos_left += 1
-
-        while pos_right > pos_left and tag_text[pos_right - 1] == " ":
-            pos_right -= 1
                 
         if pos_left == pos_right:
-            # No inner content
+            # No inner content.
             return (opening_token, None)
-        
         else:
+            # Return inner content.
             inner_content = tag_text[pos_left+1:pos_right]
             return (opening_token, inner_content)
 
     # If opening token is on neither list:
-    # Return opening token and inner content
     else:
-        return (None, None)
+        opening_token = None
+        inner_content = None
+
+    # Return opening token and inner content, if any.
+    # Though there should be opening token. Validation should take care of that.
+
+    return (opening_token, inner_content)
