@@ -1,8 +1,3 @@
-### Overall rules of forming tags
-
-A Markform tag is comprised of, in sequence:
-
-
 ## Markform Tags
 
 ### Definition
