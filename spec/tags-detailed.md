@@ -9,33 +9,33 @@ A Markform tag is a sequence of characters, within a single line of text, that i
 A Markform tag consists of these characters, in this order:
 
 1. A tag opening, consisting of:
-    - An opening bracket: `[`
-    - An opening token: `+`, `_`, `@`, `*`, `$`, `%`, `^`, `(`, `[`, `{`, or `-`
+    1. An opening bracket: `[`
+    2. An opening token: `+`, `_`, `@`, `*`, `$`, `%`, `^`, `(`, `[`, `{`, or `-`
 2. Inner content, if any, consisting of text that does not close the tag
 3. A tag closing, consisting of:
-    - A closing token: `+`, `_`, `@`, `*`, `$`, `%`, `^`, `)`, `]`, `}`, or `-`
-    - A closing bracket: `]`
+    1. A closing token: `+`, `_`, `@`, `*`, `$`, `%`, `^`, `)`, `]`, `}`, or `-`
+    2. A closing bracket: `]`
 
 ### Categories of tags
 
 #### Simple-token tags
 
 In a simple-token tag, the opening token characer is the same as the closing token character:
-    - `+` Start of form
-    - `_` Text input
-    - `@` Email input
-    - `*` Password input
-    - `$` Number input
-    - `%` Range input
-    - `^` File input
-    - `-` End of form
+- `+` Start of form
+- `_` Text input
+- `@` Email input
+- `*` Password input
+- `$` Number input
+- `%` Range input
+- `^` File input
+- `-` End of form
 
 #### Inverse-token tags
 
-- In an inverse-token tag, the closing token characer is the inverse of the opening token character:
-    - `(` `)` Submit button
-    - `[` `]` Textarea
-    - `{` `}` Checkbox group, radio button group, or select group
+In an inverse-token tag, the closing token characer is the inverse of the opening token character:
+- `(` `)` Submit button
+- `[` `]` Textarea
+- `{` `}` Checkbox group, radio button group, or select group
 
 ### Detailed tag structure
 
