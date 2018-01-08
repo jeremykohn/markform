@@ -8,7 +8,7 @@ The character immediately before the closing bracket in a Markform tag is called
 - In some types of tags, the closing token character is the same as the opening token character.
 - In other types of tags, the closing token character is the inverse of the opening token character.
 
-A Markform tag may optionally include whitespace and/or other text between the opening token and closing token. Any text between the opening token and closing token, after trimming whitespace, becomes the tag's "inner content."
+A Markform tag may optionally include whitespace and/or other text between the opening token and closing token. Any text between the opening token and the closing token becomes the tag's "inner content."
 
 ### Same-token tags and inverse-token tags
 
