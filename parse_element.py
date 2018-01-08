@@ -1,4 +1,5 @@
 # Splits Markform element into pre-tag, tag, and post-tag.
+# Or return None if the line is not a Markform element.
 
 def validate_element(line):
     # Input should be a one-line string.
@@ -10,11 +11,6 @@ def validate_element(line):
     # Also see if tag is included? 
     
 def parse_element(line):
-
-    # Components to return.
-    pre_tag_text = ""
-    tag_text = ""
-    post_tag_text = ""
 
     # Initial conditions.
     opening_token = None
@@ -95,9 +91,10 @@ def parse_element(line):
         pre_tag_text = line[:left_bracket_index]
         tag_text = line[left_bracket_index:right_bracket_index+1]
         post_tag_text = line[right_bracket_index+1:]
-    
-    # Return whatever found. Might be empty strings.
-    return (pre_tag_text, tag_text, post_tag_text)
+        return (pre_tag_text, tag_text, post_tag_text)
+    else:
+        # No Markform tag in this line.
+        return None
     
     # Our work here is done.
     # Other methods will parse tag itself, get token, 
