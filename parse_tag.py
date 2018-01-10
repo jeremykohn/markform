@@ -149,3 +149,44 @@ def parse_tag(tag_text):
     # Though there should be opening token. Validation should take care of that.
 
     return (opening_token, inner_content)
+
+
+
+# Test cases to validate and parse tag input.
+
+test_cases = [
+    # None, 0, 1, 2.3, True, False, 
+    "",
+    "[+]",
+    " [+] ",
+    "  [+++] ",
+    "Form [+] start",
+    "Not an element",
+    "Not an [+ element",
+    "Yes [+   +] an element",
+    "Yes [+  +]+] an element",
+    "Yes [+++ + all sorts of text in here++++] an element",
+    "Element with pre-text only [+   +]",
+    "[+    +] and post-text only."
+
+]
+
+inverse_test_cases = [
+    # None, 0, 1, 2.3, True, False, 
+    "",
+    "Not an element",
+    "Not an [[ element",
+    "Not an [[] element",
+    "Textarea [[]] element",
+    "Yes [[+   +]] an element",
+    "Not [[+   +] ] an element",
+    "Not a valid element [[[ though that will be taken care of later]]]",
+    "Yes [[{[ all sorts of text in here  }]}]] an element"
+]
+
+all_test_cases = test_cases + inverse_test_cases
+
+for test_case in all_test_cases:
+    print("Tag: " + test_case)
+    print("Validate: {}".format(validate_tag(test_case)))
+    print("Parse: {}".format(parse_tag(test_case)))
