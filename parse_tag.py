@@ -37,7 +37,7 @@ def validate_tag(tag_text):
 
     # If inverse tokens: Closing token must be inverse of opening token.
     elif second_char in inverse_tokens:
-        if second_last_char != inverse_tokens(second_char):
+        if second_last_char != inverse_tokens[second_char]:
             return False
 
     # If neither simple token or inverse token, then tag is invalid.
@@ -57,10 +57,6 @@ def validate_tag(tag_text):
 
     return True
 
-
-# ^ 1/9
-
-# The rest, 1/10
 
 def parse_tag(tag_text):
     # Return opening token (which determines tag type), and also text between tokens (inner content).
@@ -168,13 +164,13 @@ test_cases_false = [
     "[-+]",
     "[+ -]",
     "[- +]",
-    "Non-tag text"
+    "Non-tag text",
     "Pre-text [+]",
     "[+] post-text",
-    "Pre- and [+] post-text"
-    # Also add inverse-token tag test cases
-    "[(]"
-    "[)]"
+    "Pre- and [+] post-text",
+    # Inverse-token tag test cases
+    "[(]",
+    "[)]",
     "[[)]",
     "[(]]",
     "[[[]]]",
