@@ -154,37 +154,61 @@ def parse_tag(tag_text):
 
 # Test cases to validate and parse tag input.
 
-test_cases = [
+test_cases_false = [
     # None, 0, 1, 2.3, True, False, 
     "",
-    "[+]",
+    "[+",
+    "+]",
+    " [+]",
+    "[+] ",
     " [+] ",
     "  [+++] ",
-    "Form [+] start",
-    "Not an element",
-    "Not an [+ element",
-    "Yes [+   +] an element",
-    "Yes [+  +]+] an element",
-    "Yes [+++ + all sorts of text in here++++] an element",
-    "Element with pre-text only [+   +]",
-    "[+    +] and post-text only."
-
+    "[+ +]+]",
+    "[+-]",
+    "[-+]",
+    "[+ -]",
+    "[- +]",
+    "Non-tag text"
+    "Pre-text [+]",
+    "[+] post-text",
+    "Pre- and [+] post-text"
+    # Also add inverse-token tag test cases
+    "[(]"
+    "[)]"
+    "[[)]",
+    "[(]]",
+    "[[[]]]",
+    "[[()]]",
+    "[(())]",
+    "[[[ ]]]",
+    "[(( ))]",
 ]
 
-inverse_test_cases = [
-    # None, 0, 1, 2.3, True, False, 
-    "",
-    "Not an element",
-    "Not an [[ element",
-    "Not an [[] element",
-    "Textarea [[]] element",
-    "Yes [[+   +]] an element",
-    "Not [[+   +] ] an element",
-    "Not a valid element [[[ though that will be taken care of later]]]",
-    "Yes [[{[ all sorts of text in here  }]}]] an element"
+
+test_cases_true = [
+    # Simple
+    "[+]",
+    "[++]",
+    "[+++]",
+    "[+ +]",
+    "[++ +]",
+    "[+ ++]",
+    "[++ ++]",
+    "[+Inner content+]",
+    "[+ Inner content+]",
+    "[+Inner content +]",
+    "[+ Inner content +]",
+    "[+  Inner content+]",
+    "[+  Inner content +]",
+    "[+ Inner content  +]",
+    # Inverse
+    "[[]]",
+    "[()]",
+    "[[()]]",
+    "[([])]"
 ]
 
-all_test_cases = test_cases + inverse_test_cases
+all_test_cases = test_cases_false + test_cases_true
 
 for test_case in all_test_cases:
     print("Tag: " + test_case)
