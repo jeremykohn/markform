@@ -32,7 +32,7 @@ def validate_tag(tag_text):
 
     # If simple token: Tag must have the same opening and closing token.
     if second_char in simple_tokens:
-        if second_last_char != opening_token:
+        if second_last_char != second_char:
             return False
 
     # If inverse tokens: Closing token must be inverse of opening token.
@@ -49,6 +49,7 @@ def validate_tag(tag_text):
     while pos < len(tag_text):
         if tag_text[pos] == "\n":
             return False
+        pos += 1
 
     # Also parse for early closing? Like, [+ Inner text content +] More content +]
     # Not here, I think. Just validate the basics. 
@@ -57,11 +58,17 @@ def validate_tag(tag_text):
     return True
 
 
+# ^ 1/9
 
+# The rest, 1/10
 
 def parse_tag(tag_text):
     # Return opening token (which determines tag type), and also text between tokens (inner content).
     
+    # First, make sure the tag is valid.
+    if not validate_tag(tag_text):
+        return None
+
     # Types of Markform tokens.
     # Move these to class variable?
     
@@ -80,8 +87,8 @@ def parse_tag(tag_text):
     opening_token = tag_text[1]
 
     if opening_token in simple_tokens:
-        closing_token = token 
-    elif token in inverse_tokens:
+        closing_token = opening_token 
+    elif opening_token in inverse_tokens:
         closing_token = inverse_tokens[opening_token]
 
     if opening_token in simple_tokens:
@@ -94,6 +101,7 @@ def parse_tag(tag_text):
                 pos_left += 1
             else:
                 break
+
         # Now pos_left is at rightmost opening token.
 
         # Move pos_right backward through continous closing tokens.
