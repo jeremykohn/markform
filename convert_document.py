@@ -9,32 +9,34 @@ def convert_document(self, document_text):
         (markform_tag_type, tag_inner_content, pre_tag_text, post_tag_text) = self.parse_line(line)
 
         if markform_tag_type == None:
-            # append unconverted line to document_output
+            # If line is not a Markform element, append unconverted line to document_output
+            document_output += line
         elif markform_tag_type == "start":
+            # Open a Markform block
             form_open = True
-            # append additional newline and <form> to document_output
+            # Append additional newline and form opening tag to document_output
+            document_output += '\n'
+            document_output += convert_element(markform_tag_type, tag_inner_content, pre_tag_text, post_tag_text)
         elif markform_tag_type == "end":
+            # Append form closing tag and additional newline to document_output
+            document_output += convert_element(markform_tag_type, tag_inner_content, pre_tag_text, post_tag_text)
+            document_output += '\n'
+            # Close the Markform block
             form_open = False
-            # append </form> and additional newline to document_output
-        elif form_open == True:
-            if markform_tag_type == "text_input":
-                # convert element to HTML --
-                # based on (markform_tag_type, tag_inner_content, pre_tag_text, post_tag_text)
-                # Then append HTML to document_output
+        else:
+            if form_open == True:
+                # Convert Markform element to HTML, append to document_output                
+                document_output += convert_element(markform_tag_type, tag_inner_content, pre_tag_text, post_tag_text)
+            else:
+                # If not within Markform block, append unconverted line to document_output
+                document_output += line                
 
-            # Same with other tag types.
-            # An elif for each type,
-            # which calls a function for each type.
-
-
-            
-
-        # Finally, 
-        # append \n to document_output.
+        # Finally, append \n to document_output.
+        document_output += '\n'
 
         # On to the next line.
 
-    # Truncate the last \n we just added, since it's extra.
+    # Might truncate the last \n we just added, since it's extra.
     
     
 
