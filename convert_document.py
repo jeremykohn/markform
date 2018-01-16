@@ -4,41 +4,41 @@ def convert_document(self, document_text):
     lines = document_text.split('\n')
     form_open = False
 
-    for line in lines:
+    for line_number, line in enumerate(lines):
+        
+        # Gets element if the line is valid Markform. Returns None otherwise.
+        markform_element = get_markform_element(line)
 
-        (markform_tag_type, tag_inner_content, pre_tag_text, post_tag_text) = self.parse_line(line)
-
-        if markform_tag_type == None:
-            # If line is not a Markform element, append unconverted line to document_output
-            document_output += line
-        elif markform_tag_type == "start":
-            # Open a Markform block
-            form_open = True
-            # Append additional newline and form opening tag to document_output
-            document_output += '\n'
-            document_output += convert_element(markform_tag_type, tag_inner_content, pre_tag_text, post_tag_text)
-        elif markform_tag_type == "end":
-            # Append form closing tag and additional newline to document_output
-            document_output += convert_element(markform_tag_type, tag_inner_content, pre_tag_text, post_tag_text)
-            document_output += '\n'
-            # Close the Markform block
-            form_open = False
+        if markform_element:
+            element_type = markform_element["element_type"]
+            element_html_output = convert_element_to_html(markform_element)
         else:
-            if form_open == True:
-                # Convert Markform element to HTML, append to document_output                
-                document_output += convert_element(markform_tag_type, tag_inner_content, pre_tag_text, post_tag_text)
-            else:
-                # If not within Markform block, append unconverted line to document_output
-                document_output += line                
+            element_type = None
+            element_html = None
 
-        # Finally, append \n to document_output.
-        document_output += '\n'
-
-        # On to the next line.
-
-    # Might truncate the last \n we just added, since it's extra.
-    
-    
+        if element_type == "start" and not form_open:
+            # Open a Markform block.
+            form_open = True
+            # Append newline, to separate converted HTML from previous content.
+            document_output += '\n'
+            
+        if element_type and form_open:
+            # Append converted Markform element.
+            document_output += element_html_output
+        
+        if element_type == "end" and form_open:
+            # Close the Markform block.
+            form_open = False            
+            # Append newline, to separate converted HTML from successive content.
+            document_output += '\n'
+        
+        else:
+            # Don't convert line, just append unconverted line.
+            document_output += line            
+        
+        # Done with this line.
+        # Append newline to output, unless it's the last line of the document.
+        if line_number + 1 < len(lines):
+            document_output += '\n'
 
     return document_output
-
