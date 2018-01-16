@@ -16,16 +16,18 @@ def convert_document(self, document_text):
         elif markform_tag_type == "end":
             form_open = False
             # append </form> and additional newline to document_output
-        elif markform_tag_type == "text_input" and form_open == True:
-            # convert element to HTML --
-            # based on (markform_tag_type, tag_inner_content, pre_tag_text, post_tag_text)
-            # Then append HTML to document_output
+        elif form_open == True:
+            if markform_tag_type == "text_input":
+                # convert element to HTML --
+                # based on (markform_tag_type, tag_inner_content, pre_tag_text, post_tag_text)
+                # Then append HTML to document_output
 
-        # Same with other tag types.
-        # An elif for each type,
-        # which calls a function for each type.
+            # Same with other tag types.
+            # An elif for each type,
+            # which calls a function for each type.
 
 
+            
 
         # Finally, 
         # append \n to document_output.
