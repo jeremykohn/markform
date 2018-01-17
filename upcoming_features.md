@@ -8,7 +8,7 @@ Select any number of checkboxes ("First" and "Second" are pre-checked):
 
 ## Radio buttons
 
-Select one option at the most (default is "Second"): 
+Select one option at the most ("Second" is pre-checked): 
 
 ```
 [{ ( ) First (o) Second ( ) Third }]
@@ -16,7 +16,7 @@ Select one option at the most (default is "Second"):
 
 ## Select / Dropdown list
 
-Select one option (default is "Third"): 
+Select one option ("Third" is pre-selected): 
 ```
 [{ | First | Second || Third || }]
 ```
