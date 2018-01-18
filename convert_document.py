@@ -27,7 +27,7 @@ def convert_document(self, document_text):
             form_open = False
 
         elif element_type and form_open:
-            # Append converted Markform element.
+            # Inside Markform block. Convert and append Markform element.
             document_output += convert_line_to_html(line)
 
         else:
