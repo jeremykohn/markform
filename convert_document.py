@@ -11,10 +11,8 @@ def convert_document(self, document_text):
 
         if markform_element:
             element_type = markform_element["element_type"]
-            element_html_output = convert_element_to_html(markform_element)
         else:
             element_type = None
-            element_html = None
 
         if element_type == "start" and not form_open:
             # Open a Markform block.
@@ -24,7 +22,7 @@ def convert_document(self, document_text):
             
         if element_type and form_open:
             # Append converted Markform element.
-            document_output += element_html_output
+            document_output += convert_line_to_html(line)
         
         if element_type == "end" and form_open:
             # Close the Markform block.
