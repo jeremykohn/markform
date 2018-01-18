@@ -5,15 +5,10 @@ def convert_document(self, document_text):
     form_open = False
 
     for line_number, line in enumerate(lines):
-        
-        # Gets element if the line is valid Markform. Returns None otherwise.
-        markform_element = get_markform_element(line)
 
-        if markform_element:
-            element_type = markform_element["element_type"]
-        else:
-            element_type = None
-
+        # If line includes Markform element, returns element type. Else, returns None.
+        element_type = get_element_type(line)
+            
         if element_type == "start" and not form_open:
             # Open a Markform block.
             form_open = True
@@ -31,7 +26,7 @@ def convert_document(self, document_text):
             document_output += '\n'
         
         else:
-            # Don't convert line, just append unconverted line.
+            # If earlier conditions not met, don't convert line, just append unconverted line.
             document_output += line            
         
         # Done with this line.
