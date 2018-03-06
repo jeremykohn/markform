@@ -32,7 +32,7 @@ def parse_line(line):
     }
     
     # For some tag types, the opening identifier and closing identifier are inverses of each other.
-    inverses_of_identifiers = {
+    inverse_identifiers = {
         "(": ")",
         "[": "]",            
         "{": "}"
@@ -106,8 +106,12 @@ def parse_line(line):
                 # If not valid tag, don't convert line -- "convert to HTML" just returns original line.
             if left_bracket_index > 0:
                 pre_tag_text = line[:left_bracket_index]
+            else:
+                pre_tag_text = ""
             if right_bracket_index < len(line) - 1:
                 post_tag_text = line[right_bracket_index + 1 :]
+            else:
+                post_tag_text = ""
             # Return tag type and content of each section.
             return (tag_type, tag_text, pre_tag_text, post_tag_text)
 
