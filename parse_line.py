@@ -159,11 +159,13 @@ for line in positive_test_cases:
     if tag_type:
         print("Line with Markform tag: {}".format(parse_line(line)))
     else:
-        print("Uh oh, this line is supposed to have a Markform tag in it: {}".format(parse_line(line)))
+        print("Uh oh, this line is supposed to have a Markform tag in it: {}".format(line))
+        print("Instead, the parsed line is: {}".format(parse_line(line)))
     
 for line in negative_test_cases:
     tag_type, tag_text, pre_tag_text, post_tag_text = parse_line(line)
     if tag_type == None:
         print("Line without Markform tag: {}".format(parse_line(line)))
     else:
-        print("Uh oh, this line isn't supposed to have a Markform tag in it: {}".format(parse_line(line)))
+        print("Uh oh, this line isn't supposed to have a Markform tag in it: {}".format(line))
+        print("Instead, the parsed line is: {}".format(parse_line(line)))
