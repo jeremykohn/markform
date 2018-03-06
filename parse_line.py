@@ -8,36 +8,41 @@ def validate_element(line):
     if "\n" in line:
         raise ValueError("Element must include only one line, cannot include newline.")
 
-# Returns tag_type, pre_tag_content, inner_content, post_tag_content
+# Returns tag_type, pre_tag_content, inner_content, post_tag_content.
 def parse_line(line):
+    # First, search for opening bracket followed by opening identifier.
+    # If found, get opening identifier and deduce closing identifier.
+    # Then search for closing identifer followed by closing bracket.
+    
     # Initial conditions.
-    opening_token = None
-    closing_token = None
+    tag_open = False
     tag_complete = False
-    left_bracket_index = None
-    right_bracket_index = None
 
-    # Types of Markform tokens.
-    # Move these to class variable?
-    
-    # For some types of Markform tags, the opening and closing tokens are the same character.
-    simple_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
-    
-    # For other Markform tags, the closing token is the inverse of the opening token.
-    inverse_tokens = {
-        "(": ")",
-        "[": "]",            
-        "{": "}",
-        "|": "|"
+    # Types of Markform identifiers.
+    tag_type_identifiers = {
+        "+": "start",
+        "-": "end",
+        "_": "text_input",
+        "@": "email_input",
+        "$": "number_input",
+        "%": "range_input",
+        "^": "file_input",
+        "(": "submit_button",
+        "[": "textarea",
+        "{": "multiple_choice"
     }
     
-
-    # Search for opening bracket followed by opening token.
-    # If found, get opening token and (based on opening token) closing token.
+    # For some tag types, the opening identifier and closing identifier are inverses of each other.
+    inverses_of_identifiers = {
+        "(": ")",
+        "[": "]",            
+        "{": "}"
+    }
 
     # Current position. Start at beginning of line.
     pos = 0
     
+    # Search for opening bracket followed by opening identifier.
     while pos < len(line):
 
         # print(pos)
@@ -57,58 +62,62 @@ def parse_line(line):
         else:
             next_character = None
             
-        # Check for an unescaped opening bracket followed by a Markform token.
+        # Check for an unescaped opening bracket followed by an opening identifier.
         if current_character == "[" and previous_character != "\\":
-            # Simple opening tokens (for same-token tags)
-            if next_character in simple_tokens:
-                opening_token = next_character
-                closing_token = opening_token
-                break
-            # Inverse opening token (for inverse-token tags)
-            elif next_character in inverse_tokens:
-                opening_token = next_character
-                closing_token = inverse_tokens[opening_token]
-                break
-                
-        # If closing token not found, continue parsing.
+            if next_character in tag_type_identifiers:
+                # Found tag opening.
+                tag_open = True
+                opening_identifier = next_character
+
+        if tag_open:
+            # In some types of tags, the opening and closing identifiers are the same.
+            if opening_identifier not in inverse_identifiers:
+                closing_identifier = opening_identifier        
+            # In other types of tags, the opening and closing identifiers are inverses of each other.
+            else:
+                closing_identifier = inverse_identifiers[opening_identifier]
+
+            # Search for tag closing.
+
+            # Start at current position, where the tag opens.
+            pos_left = pos
+
+            # Search for closing bracket preceded by closing identifier.
+            pos_right = pos_left + 1                
+            while pos_right + 1 < len(line):
+                if line[pos_right] == closing_identifier and line[pos_right + 1] == "]":
+                    # Found end of tag.
+                    tag_complete = True
+                    # Get tag's starting and ending positions.
+                    left_bracket_index = pos_left
+                    right_bracket_index = pos_right
+                    # Stop looking for end of tag. 
+                    break
+                else:
+                    # Keep looking for end of tag.
+                    pos_right += 1
+
+        if tag_complete:   
+            # Get tag type based on opening identifier.
+            tag_type = tag_type_identifiers[opening_identifier]
+            # Divide line into sections.
+            tag_text = line[left_bracket_index : right_bracket_index + 1]
+            # inner_content: Need to parse tag.
+            # Also, validate_tag: Need to parse tag.
+                # If not valid tag, don't convert line -- "convert to HTML" just returns original line.
+            if left_bracket_index > 0:
+                pre_tag_text = line[:left_bracket_index]
+            if right_bracket_index < len(line) - 1:
+                post_tag_text = line[right_bracket_index + 1 :]
+            # Return tag type and content of each section.
+            return (tag_type, tag_text, pre_tag_text, post_tag_text)
+
+        # If tag not open and not complete, continue parsing.
         pos += 1
-
-    # If there is an opening token, search for a tag closing, 
-    # which is a closing token followed by a closing bracket.
-    if opening_token:
-        pos_left = pos
-        pos_right = pos + 1
-
-        # Move pos_right to find closing bracket preceded by closing token.
-        while pos_right + 1 < len(line):
-            if line[pos_right] == closing_token and line[pos_right + 1] == "]":
-                tag_complete = True
-                # Found end of tag.
-                # Get tag's position.
-                left_bracket_index = pos_left
-                right_bracket_index = pos_right
-                break
-
-            pos_right += 1
-
-    if tag_complete:
-        # Get tag type based on opening token.
-        
-        # Divide line and return each section.
-        pre_tag_text = line[:left_bracket_index]
-        tag_text = line[left_bracket_index:right_bracket_index+2]
-        post_tag_text = line[right_bracket_index+2:]
-        return (tag_type, pre_tag_text, tag_text, post_tag_text)
-    else:
-        # No Markform tag in this line.
-        return None
     
-    # Our work here is done.
-    # Other methods will parse tag itself, get token, 
-    # trim whitespace around tag, get inner content, 
-    # combine label with inner content to create HTML tags, 
-    # etc.
-
+    # Parser has reached the end of this line. 
+    # No Markform tag found, so return None for tag type, and return empty strings in place of text sections.
+    return None, "", "", ""
 
 
 test_cases = [
@@ -127,6 +136,7 @@ test_cases = [
     "[+    +] and post-text only."
 
 ]
+
 
 inverse_test_cases = [
     # None, 0, 1, 2.3, True, False, 
