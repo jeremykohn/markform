@@ -119,36 +119,41 @@ def parse_line(line):
     return None, "", "", ""
 
 
-test_cases = [
-    # None, 0, 1, 2.3, True, False, 
-    "",
-    "No tag here"
+positive_test_cases = [
     "[+]",
     " [+] ",
     "  [+++] ",
     "Form [+] start",
-    "No tag",
-    "Not a [+ tag",
     "Yes [+   +] a tag",
     "Yes [+  +]+] a tag",
+    "Yes [[+   +]] tag",
     "Yes [+++ + all sorts of text in here++++] a tag",
     "Tag and pre-tag text [+   +]",
     "[+    +] tag and post-tag text"
-    "No tag [[ on this line",
-    "No tag [[] on this line",
     "Textarea [[]] tag",
-    "Yes [[+   +]] tag",
-    "No [[+   +] ] tag",
-    "Not a valid tag [[[ though that will be taken care of later]]]",
     "Yes valid tag [[{[ with all sorts of text in here  }]}]] and text afterwards"
 ]
 
+negative_test_cases = [
+    None, 0, 1, 2.3, True, False, 
+    "",
+    "No tag here",
+    "No tag",
+    "Not a [+ tag",
+    "No tag [[ on this line",
+    "No tag [[] on this line",
+    "No [[+   +] ] tag",
+    "Not a valid tag [[[ though that will be taken care of later]]]"
+]
 
-for line in test_cases:
-    validate_element(line)
-    print(parse_element(line))
-
+for line in positive_test_cases:
+    if tag_type:
+        print("Line with Markform tag: {}".format(parse_element(line)))
+    else:
+        print("Uh oh, this line is supposed to have a Markform tag in it: {}".format(parse_element(line)))
     
-for line in inverse_test_cases:
-    validate_element(line)
-    print(parse_element(line))
+for line in negative_test_cases:
+    if tag_type == None:
+        print("Line without Markform tag: {}".format(parse_element(line)))
+    else:
+        print("Uh oh, this line isn't supposed to have a Markform tag in it: {}".format(parse_element(line)))
