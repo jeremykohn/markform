@@ -8,7 +8,7 @@ def validate_element(line):
     if "\n" in line:
         raise ValueError("Element must include only one line, cannot include newline.")
 
-        
+# Returns tag_type, pre_tag_content, inner_content, post_tag_content
 def parse_line(line):
     # Initial conditions.
     opening_token = None
@@ -22,7 +22,7 @@ def parse_line(line):
     
     # For some types of Markform tags, the opening and closing tokens are the same character.
     simple_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
-
+    
     # For other Markform tags, the closing token is the inverse of the opening token.
     inverse_tokens = {
         "(": ")",
@@ -92,11 +92,13 @@ def parse_line(line):
             pos_right += 1
 
     if tag_complete:
-        # Divide string and return each section.
+        # Get tag type based on opening token.
+        
+        # Divide line and return each section.
         pre_tag_text = line[:left_bracket_index]
         tag_text = line[left_bracket_index:right_bracket_index+2]
         post_tag_text = line[right_bracket_index+2:]
-        return (pre_tag_text, tag_text, post_tag_text)
+        return (tag_type, pre_tag_text, tag_text, post_tag_text)
     else:
         # No Markform tag in this line.
         return None
