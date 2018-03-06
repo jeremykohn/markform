@@ -2,7 +2,7 @@
 # Or return None if the line is not a Markform element.
 
 # Validate input: A one-line string. No newlines.
-def validate_element(line):
+def validate_single_line(line):
     if type(line) is not str:
         raise ValueError("Element must be a string.")
     if "\n" in line:
@@ -123,32 +123,25 @@ def parse_line(line):
 test_cases = [
     # None, 0, 1, 2.3, True, False, 
     "",
+    "No tag here"
     "[+]",
     " [+] ",
     "  [+++] ",
     "Form [+] start",
-    "Not an element",
-    "Not an [+ element",
-    "Yes [+   +] an element",
-    "Yes [+  +]+] an element",
-    "Yes [+++ + all sorts of text in here++++] an element",
-    "Element with pre-text only [+   +]",
-    "[+    +] and post-text only."
-
-]
-
-
-inverse_test_cases = [
-    # None, 0, 1, 2.3, True, False, 
-    "",
-    "Not an element",
-    "Not an [[ element",
-    "Not an [[] element",
-    "Textarea [[]] element",
-    "Yes [[+   +]] an element",
-    "Not [[+   +] ] an element",
-    "Not a valid element [[[ though that will be taken care of later]]]",
-    "Yes [[{[ all sorts of text in here  }]}]] an element"
+    "No tag",
+    "Not a [+ tag",
+    "Yes [+   +] a tag",
+    "Yes [+  +]+] a tag",
+    "Yes [+++ + all sorts of text in here++++] a tag",
+    "Tag and pre-tag text [+   +]",
+    "[+    +] tag and post-tag text"
+    "No tag [[ on this line",
+    "No tag [[] on this line",
+    "Textarea [[]] tag",
+    "Yes [[+   +]] tag",
+    "No [[+   +] ] tag",
+    "Not a valid tag [[[ though that will be taken care of later]]]",
+    "Yes valid tag [[{[ with all sorts of text in here  }]}]] and text afterwards"
 ]
 
 
