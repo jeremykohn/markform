@@ -3,9 +3,9 @@
 # First, validate input: A one-line string. No newlines.
 def validate_single_line(line):
     if type(line) is not str:
-        raise ValueError("Element must be a string.")
+        raise ValueError("Line must be a string.")
     if "\n" in line:
-        raise ValueError("Element must include only one line, cannot include newline.")
+        raise ValueError("Line must include only one line, cannot include newline.")
 
 # Parse line to get tag type, tag text, pre-tag text, and post-tag text.
 def parse_line(line):
@@ -153,13 +153,13 @@ negative_test_cases = [
 for line in positive_test_cases:
     tag_type, tag_text, pre_tag_text, post_tag_text = parse_line(line)
     if tag_type:
-        print("Line with Markform tag: {}".format(parse_element(line)))
+        print("Line with Markform tag: {}".format(parse_line(line)))
     else:
-        print("Uh oh, this line is supposed to have a Markform tag in it: {}".format(parse_element(line)))
+        print("Uh oh, this line is supposed to have a Markform tag in it: {}".format(parse_line(line)))
     
 for line in negative_test_cases:
     tag_type, tag_text, pre_tag_text, post_tag_text = parse_line(line)
     if tag_type == None:
-        print("Line without Markform tag: {}".format(parse_element(line)))
+        print("Line without Markform tag: {}".format(parse_line(line)))
     else:
-        print("Uh oh, this line isn't supposed to have a Markform tag in it: {}".format(parse_element(line)))
+        print("Uh oh, this line isn't supposed to have a Markform tag in it: {}".format(parse_line(line)))
