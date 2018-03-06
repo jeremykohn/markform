@@ -139,7 +139,7 @@ positive_test_cases = [
 ]
 
 negative_test_cases = [
-    None, 0, 1, 2.3, True, False, 
+    # None, 0, 1, 2.3, True, False, 
     "",
     "No tag here",
     "No tag",
