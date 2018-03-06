@@ -76,15 +76,19 @@ def parse_line(line):
             else:
                 closing_identifier = inverse_identifiers[opening_identifier]
 
-            # Search for tag closing.
+            # Starting at tag opening, search for tag closing.
+            # Closing bracket preceded by closing identifier.
 
-            # Start at current position, where the tag opens.
+            # Start at current position, at the opening bracket.
             pos_left = pos
 
-            # Search for closing bracket preceded by closing identifier.
-            pos_right = pos_left + 1                
+            # Start pos_right one step past the opening identifier, that is, two steps past the opening bracket.
+            pos_right = pos_left + 2
+            
+            # Advance pos_right to search for end of tag.
             while pos_right + 1 < len(line):
-                if line[pos_right] == closing_identifier and line[pos_right + 1] == "]":
+                # Look for a closing bracket preceded by the closing identifier.
+                if line[pos_right] == "]" and line[pos_right - 1] == closing_identifier:
                     # Found end of tag.
                     tag_complete = True
                     # Get tag's starting and ending positions.
