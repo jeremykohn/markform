@@ -86,7 +86,7 @@ def parse_line(line):
             pos_right = pos_left + 2
             
             # Advance pos_right to search for end of tag.
-            while pos_right + 1 < len(line):
+            while pos_right < len(line):
                 # Look for a closing bracket preceded by the closing identifier.
                 if line[pos_right] == "]" and line[pos_right - 1] == closing_identifier:
                     # Found end of tag.
