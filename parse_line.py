@@ -9,7 +9,7 @@ def validate_element(line):
         raise ValueError("Element must include only one line, cannot include newline.")
 
         
-def parse_element(line):
+def parse_line(line):
     # Initial conditions.
     opening_token = None
     closing_token = None
