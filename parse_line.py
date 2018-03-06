@@ -1,14 +1,13 @@
-# Splits Markform element into pre-tag, tag, and post-tag.
-# Or return None if the line is not a Markform element.
+# Parse one line.
 
-# Validate input: A one-line string. No newlines.
+# First, validate input: A one-line string. No newlines.
 def validate_single_line(line):
     if type(line) is not str:
         raise ValueError("Element must be a string.")
     if "\n" in line:
         raise ValueError("Element must include only one line, cannot include newline.")
 
-# Returns tag_type, pre_tag_content, inner_content, post_tag_content.
+# Parse line to get tag type, tag text, pre-tag text, and post-tag text.
 def parse_line(line):
     # First, search for opening bracket followed by opening identifier.
     # If found, get opening identifier and deduce closing identifier.
