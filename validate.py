@@ -1,11 +1,10 @@
-# Validate Markform tag format, in general.
-# If not valid, do not create a tag.
-def validate_tag(tag_text):
+# Validate Markform element format, in general.
+def validate_element(element_text):
 
-    # For some types of Markform tags, the opening and closing tokens are the same character.
+    # For some types of Markform elements, the opening and closing tokens are the same character.
     simple_tokens = ['+', '-', '_', '@', '$', '%', '^', '*']
         
-    # For other Markform tags, the closing token is the inverse of the opening token.
+    # For other Markform elements, the closing token is the inverse of the opening token.
     inverse_tokens = {
         "(": ")",
         "[": "]",            
@@ -13,22 +12,22 @@ def validate_tag(tag_text):
         "|": "|"
     }
 
-    # Tag must be at least three characters, since it requires `[`, `]` and at least one token.
-    if len(tag_text) < 3:
+    # Element must be at least three characters, since it requires `[`, `]` and at least one token.
+    if len(element_text) < 3:
         return False
 
     # Validate opening and closing brackets.
-    first_char = tag_text[0]
-    last_char = tag_text[-1]
+    first_char = element_text[0]
+    last_char = element_text[-1]
 
     if first_char != "[" or last_char != "]":
         return False
 
     # Validate opening and closing tokens.
-    second_char = tag_text[1]
-    second_last_char = tag_text[-2]    
+    second_char = element_text[1]
+    second_last_char = element_text[-2]    
 
-    # If simple token: Tag must have the same opening and closing token.
+    # If simple token: Element must have the same opening and closing token.
     if second_char in simple_tokens:
         if second_last_char != second_char:
             return False
@@ -38,14 +37,14 @@ def validate_tag(tag_text):
         if second_last_char != inverse_tokens[second_char]:
             return False
 
-    # If neither simple token or inverse token, then tag is invalid.
+    # If neither simple token or inverse token, then element is invalid.
     else:
         return False
 
     # Parse for non-allowed components.
     pos = 0
-    while pos < len(tag_text):
-        if tag_text[pos] == "\n":
+    while pos < len(element_text):
+        if element_text[pos] == "\n":
             return False
         pos += 1
 
@@ -72,11 +71,11 @@ test_cases_false = [
     "[-+]",
     "[+ -]",
     "[- +]",
-    "Non-tag text",
+    "Non-element text",
     "Pre-text [+]",
     "[+] post-text",
     "Pre- and [+] post-text",
-    # Inverse-token tag test cases
+    # Inverse-token element test cases
     "[(]",
     "[)]",
     "[[)]",
@@ -115,5 +114,5 @@ test_cases_true = [
 all_test_cases = test_cases_false + test_cases_true
 
 for test_case in all_test_cases:
-    print("Tag: " + test_case)
-    print("Validate: {}".format(validate_tag(test_case)))
+    print("Element: " + test_case)
+    print("Validate: {}".format(validate_element(test_case)))
