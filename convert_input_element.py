@@ -10,6 +10,8 @@ def convert_input_element(line, input_element_type):
     element_type, element_content, pre_element_content, post_element_content = parse_line(line)
     
     # Validate?
+    # Match element_type with input_element_type 
+    # and confirm that element_content starts/ends correctly. [x... ...x] with x as the correct identifier.
     # Might need to throw error if element_type != input_element_type
     
     # Trim whitespace around pre- and post-element content.
