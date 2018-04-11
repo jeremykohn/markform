@@ -11,9 +11,9 @@ def convert_markform_document(markform_document):
         parsed_line = parse_line(line)
         
         # Get individual components of line.
-        pre = parsed_line["pre_element"]
-        post = parsed_line["post_element"]
-        inner = parsed_line["inner"]
+        pre = parsed_line["pre_element_content"]
+        post = parsed_line["post_element_content"]
+        inner = parsed_line["inner_content"]
         identifier = parsed_line["opening_identifier"]
         
         # Use different functions to convert an element based on its opening identifier.
