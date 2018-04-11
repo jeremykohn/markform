@@ -73,7 +73,7 @@ def convert_markform_document(markform_document):
             # Don't convert line, just append to output.
             output = line
         
-        # Add 
+        # Add output from this element
         output_segments.append(output)
     
     # Finally, combine output segments.
