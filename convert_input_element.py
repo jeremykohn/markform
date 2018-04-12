@@ -20,12 +20,12 @@ def create_input_element(input_type, pre_element_content, post_element_content, 
     # If there is pre-element content, 
     # convert to kebab-case-text and append that to the element ID.
     if pre_element_content:
-        element_id += '-' + re.sub(r"\W+", "-", pre_element_content)
+        element_id += '-' + re.sub(r"\W+", "-", pre_element_content).lower()
     
     # And if there is post-element content, 
     # convert to kebab-case-text and append that to the element ID as well.
     if post_element_content:
-        element_id += '-' + re.sub(r"\W+", "-", post_element_content)
+        element_id += '-' + re.sub(r"\W+", "-", post_element_content).lower()
 
     # Generate HTML for label before input.
     if pre_element_content:
