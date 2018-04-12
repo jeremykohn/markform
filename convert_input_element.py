@@ -1,19 +1,12 @@
-def convert_input_element(line, input_element_type):
+# def convert_input_element(line, input_element_type):
+
+def create_input_element(input_type, pre_element_content, post_element_content, inner_content):
 
     output_html_lines = []
     
     # Output is surrounded by div tags.
     output_html_lines.append('<div>')
-    
-    # Get content from parsed line
-    # Naming should be consistent: either element_text, pre_element_text etc. or element_content, pre_element_content, etc.    
-    element_type, element_content, pre_element_content, post_element_content = parse_line(line)
-    
-    # Validate?
-    # Match element_type with input_element_type 
-    # and confirm that element_content starts/ends correctly. [x... ...x] with x as the correct identifier.
-    # Might need to throw error if element_type != input_element_type
-    
+
     # Trim whitespace around pre- and post-element content.
     pre_element_content = pre_element_content.strip()
     post_element_content = post_element_content.strip()
