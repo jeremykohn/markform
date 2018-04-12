@@ -1,9 +1,9 @@
 def convert_input_element(line, input_element_type):
-    
-    html_lines = []
+
+    output_html_lines = []
     
     # Output is surrounded by div tags.
-    html_lines.append('<div>')
+    output_html_lines.append('<div>')
     
     # Get content from parsed line
     # Naming should be consistent: either element_text, pre_element_text etc. or element_content, pre_element_content, etc.    
@@ -29,21 +29,21 @@ def convert_input_element(line, input_element_type):
     # Generate HTML for label before input, if applicable.
     if pre_element_content:
         label_before_input = '<label for="{}">{}</label>'.format(element_id, html_escape(pre_element_content))
-        html_lines.append(label_before_input)
+        output_html_lines.append(label_before_input)
     
     # Generate HTML for input.
     input_element = '<input id="{}" type="{}">'.format(element_id, input_type)
-    html_lines.append(input_element)
+    output_html_lines.append(input_element)
     
     # Generate HTML for label after input, if applicable.
     if post_element_content:
         label_after_input = '<label for="{}">{}</label>'.format(element_id, html_escape(post_element_content))
-        html_lines.append(label_after_input)
+        output_html_lines.append(label_after_input)
 
     # Last line is a closing div tag.
-    html_lines.append('</div>')
+    output_html_lines.append('</div>')
 
     # Output final HTML.
-    html_output = "\n".join(html_lines)
+    output_html = "\n".join(output_html_lines)
     
-    return html_output
+    return output_html
