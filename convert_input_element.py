@@ -5,6 +5,7 @@ def create_input_element(input_type, pre_element_content, post_element_content, 
     output_html_lines = []
     
     # Output is surrounded by div tags.
+    # First line is an opening div tag.
     output_html_lines.append('<div>')
 
     # Trim whitespace around pre- and post-element content.
@@ -14,12 +15,18 @@ def create_input_element(input_type, pre_element_content, post_element_content, 
     # Combine input type with pre-element and post-element content 
     # to create an ID for the HTML input element.
     element_id = 'markform-' + input_type + '-input'
+    
+    # If there is pre-element content, 
+    # convert to kebab-case-text and append that to the element ID.
     if pre_element_content:
-        element_id += '-' += kebab_case(pre_element_content)
+        element_id += '-' + re.sub(r"\W+", "-", pre_element_content)
+    
+    # And if there is post-element content, 
+    # convert to kebab-case-text and append that to the element ID as well.
     if post_element_content:
-        element_id += '-' += kebab_case(post_element_content)
+        element_id += '-' + re.sub(r"\W+", "-", post_element_content)
 
-    # Generate HTML for label before input, if applicable.
+    # Generate HTML for label before input.
     if pre_element_content:
         label_before_input = '<label for="{}">{}</label>'.format(element_id, html_escape(pre_element_content))
         output_html_lines.append(label_before_input)
@@ -28,7 +35,7 @@ def create_input_element(input_type, pre_element_content, post_element_content, 
     input_element = '<input id="{}" type="{}">'.format(element_id, input_type)
     output_html_lines.append(input_element)
     
-    # Generate HTML for label after input, if applicable.
+    # Generate HTML for label after input.
     if post_element_content:
         label_after_input = '<label for="{}">{}</label>'.format(element_id, html_escape(post_element_content))
         output_html_lines.append(label_after_input)
