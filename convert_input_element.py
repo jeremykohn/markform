@@ -1,4 +1,5 @@
 import re
+import cgi
 
 def create_input_element(input_type, pre_element_content, post_element_content, inner_content):
 
@@ -28,7 +29,7 @@ def create_input_element(input_type, pre_element_content, post_element_content, 
 
     # Generate HTML for label before input.
     if pre_element_content:
-        label_before_input = '<label for="{}">{}</label>'.format(element_id, html_escape(pre_element_content))
+        label_before_input = '<label for="{}">{}</label>'.format(element_id, cgi.escape(pre_element_content, quote=True))
         output_html_lines.append(label_before_input)
     
     # Generate HTML for input.
@@ -37,7 +38,7 @@ def create_input_element(input_type, pre_element_content, post_element_content, 
     
     # Generate HTML for label after input.
     if post_element_content:
-        label_after_input = '<label for="{}">{}</label>'.format(element_id, html_escape(post_element_content))
+        label_after_input = '<label for="{}">{}</label>'.format(element_id, cgi.escape(post_element_content, quote=True))
         output_html_lines.append(label_after_input)
 
     # Last line is a closing div tag.
