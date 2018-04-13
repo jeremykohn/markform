@@ -1,6 +1,6 @@
-def convert_markform_document(markform_document):
+def convert_text(markform_text):
 
-    input_lines = markform_document.split("\n")
+    input_lines = markform_text.split("\n")
     output_segments = []
 
     # Convert document line by line.
