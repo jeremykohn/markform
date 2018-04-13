@@ -44,8 +44,7 @@ def input_element(input_type, pre_element_content, post_element_content, inner_c
     post_element_content = post_element_content.strip()
     
     # Create HTML element ID by joining element type with pre/post element content.
-    element_id_segments = ['markform', input_type, 'input', pre_element_content, post_element_content]
-    element_id = combine_into_element_id(element_id_segments)
+    element_id = combine_into_element_id(['markform', input_type, 'input', pre_element_content, post_element_content])
     
     # Generate HTML for label before input.
     if pre_element_content:
