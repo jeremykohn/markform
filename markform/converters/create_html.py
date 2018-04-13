@@ -13,6 +13,11 @@ def combine_into_element_id(id_segments):
     combined_text = combined_text.lower()
     return combined_text
 
+def create_label(element_id, label_content):
+    escaped_label_content = cgi.escape(pre_element_content, quote=True)
+    label_html = '<label for="{}">{}</label>'.format(element_id, escaped_label_content)
+    return label_html
+
 
 # Later, might add more features.
 # Like, convert `Name of form: [+]` into <form><fieldset><legend>Name of form:</legend>...<fieldset></form>
@@ -44,7 +49,7 @@ def input_element(input_type, pre_element_content, post_element_content, inner_c
     
     # Generate HTML for label before input.
     if pre_element_content:
-        label_before_input = '<label for="{}">{}</label>'.format(element_id, cgi.escape(pre_element_content, quote=True))
+        label_before_input = create_label(element_id, pre_element_content)
         output_html_lines.append(label_before_input)
     
     # Generate HTML for input.
@@ -53,7 +58,7 @@ def input_element(input_type, pre_element_content, post_element_content, inner_c
     
     # Generate HTML for label after input.
     if post_element_content:
-        label_after_input = '<label for="{}">{}</label>'.format(element_id, cgi.escape(post_element_content, quote=True))
+        label_after_input = create_label(element_id, post_element_content)
         output_html_lines.append(label_after_input)
 
     # Last line is a closing div tag.
