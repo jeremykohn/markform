@@ -1,7 +1,7 @@
 import re
 import cgi
 
-def create_input_element(input_type, pre_element_content, post_element_content, inner_content):
+def input_element(input_type, pre_element_content, post_element_content, inner_content):
 
     output_html_lines = []
     
