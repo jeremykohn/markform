@@ -1,4 +1,4 @@
-from create_input_element import create_input_element
+import create_element as create
 
 def convert_text(markform_text):
 
@@ -22,35 +22,35 @@ def convert_text(markform_text):
         
         # Form start.
         if identifier == "+":
-            output = create_form_start(pre_element_content=pre, post_element_content=post, inner_content=inner)
+            output = create.form_start(pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Form end.
         elif identifier == "-":
-            output = create_form_end(pre_element_content=pre, post_element_content=post, inner_content=inner)
+            output = create.form_end(pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Various types of <input> elements.
         # Text input.
         elif identifer == "_":
-            output = create_input_element(input_type="text", pre_element_content=pre, post_element_content=post, inner_content=inner)
+            output = create.input_element(input_type="text", pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Email input.
         elif identifier == "@":
-            output = create_input_element(input_type="email", pre_element_content=pre, post_element_content=post, inner_content=inner)
+            output = create.input_element(input_type="email", pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Password input.
         elif identifier == "*":
-            output = create_input_element(input_type="password", pre_element_content=pre, post_element_content=post, inner_content=inner)
+            output = create.input_element(input_type="password", pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Number input.
         elif identifer == "$":
-            output = create_input_element(input_type="number", pre_element_content=pre, post_element_content=post, inner_content=inner)
+            output = create.input_element(input_type="number", pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Range input.
         elif identifier == "%":
-            output = create_input_element(input_type="range", pre_element_content=pre, post_element_content=post, inner_content=inner)
+            output = create.input_element(input_type="range", pre_element_content=pre, post_element_content=post, inner_content=inner)
         # File input.
         elif identifier == "^":
-            output = create_input_element(input_type="file", pre_element_content=pre, post_element_content=post, inner_content=inner)
+            output = create.input_element(input_type="file", pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Textarea.
         elif identifer == "[":
-            output = create_textarea_element(pre_element_content=pre, post_element_content=post, inner_content=inner)
+            output = create.textarea_element(pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Submit button.
         elif identifier == "(":
-            output = create_submit_button(pre_element_content=pre, post_element_content=post, inner_content=inner)
+            output = create.submit_button(pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Element group.
         elif identifier == "{":
             # Parse the inner content first, to get components and determine valid type of element group. If any.
@@ -59,13 +59,13 @@ def convert_text(markform_text):
             inner_element_list = parsed_element_group["inner_element_list"]  # Each inner element includes a [ ], [x], ( ), (o), or >, but not | characters
             # Checkbox group.
             if group_type == "checkbox":
-                output = create_checkbox_group(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
+                output = create.checkbox_group(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
             # Radio button group.
             elif group_type == "radio":
-                output = create_radio_group(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
+                output = create.radio_group(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
             # Select / dropdown menu.
             elif group_type == "select":  # or "dropdown" and create_dropdown_menu() ?
-                output = create_select_menu(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
+                output = create.select_menu(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
             else:
                 # Don't convert element group, just append to output.
                 output = line
