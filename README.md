@@ -26,10 +26,10 @@ Markform:
 ```
 [+]
 
-First name: [_]
-Last name: [_]
-Email address: [@]
-Choose a password: [*]
+First name  [_]
+Last name  [_]
+Email address  [@]
+Choose a password  [*]
 
 [(Create my account)]
 
@@ -41,19 +41,19 @@ Converted to HTML:
 ```
 <form>
   <div>
-    <label for="markform-text-input-first-name">First name:</label>
+    <label for="markform-text-input-first-name">First name</label>
     <input id="markform-text-input-first-name" type="text">
   </div>
   <div>
-    <label for="markform-text-input-last-name">Last name:</label>
+    <label for="markform-text-input-last-name">Last name</label>
     <input id="markform-text-input-last-name" type="text">
   </div>
   <div>
-    <label for="markform-email-input-email-address">Email address:</label>
+    <label for="markform-email-input-email-address">Email address</label>
     <input id="markform-email-input-email-address" type="email">
   </div>
   <div>
-    <label for="markform-password-input-choose-a-password">Choose a password:</label>
+    <label for="markform-password-input-choose-a-password">Choose a password</label>
     <input id="markform-password-input-choose-a-password" type="password">
   </div>
   <div>
@@ -69,10 +69,9 @@ Markform:
 ```
 [+]
 
-Image file to rescale: [^]
-
-Horizontal resolution: [$]
-Vertical resolution: [$]
+Image file to rescale  [^]
+Horizontal resolution  [$]
+Vertical resolution  [$]
 
 [(Upload image)]
 
@@ -84,15 +83,15 @@ Converted to HTML:
 ```
 <form>
   <div>
-    <label for="markform-file-input-image-file-to-rescale">Image to rescale:</label>
+    <label for="markform-file-input-image-file-to-rescale">Image to rescale</label>
     <input id="markform-file-input-image-file-to-rescale" type="file">
   </div>
   <div>
-    <label for="markform-number-input-horizontal-resolution">Horizontal resolution:</label>
+    <label for="markform-number-input-horizontal-resolution">Horizontal resolution</label>
     <input id="markform-number-input-horizontal-resolution" type="number">
   </div>
   <div>
-    <label for="markform-number-input-vertical-resolution">Vertical resolution:</label>
+    <label for="markform-number-input-vertical-resolution">Vertical resolution</label>
     <input id="markform-number-input-vertical-resolution" type="number">
   </div>
   <div>
