@@ -84,23 +84,12 @@ def textarea_element(pre_element_content, post_element_content, inner_content):
     pre_element_content = pre_element_content.strip()
     post_element_content = post_element_content.strip()
     
-    # Combine input type with pre-element and post-element content 
-    # to create an ID for the HTML input element.
-    element_id = 'markform-textarea'
-    
-    # If there is pre-element content, 
-    # convert to kebab-case-text and append that to the element ID.
-    if pre_element_content:
-        element_id += '-' + re.sub(r"\W+", "-", pre_element_content).lower()
-    
-    # And if there is post-element content, 
-    # convert to kebab-case-text and append that to the element ID as well.
-    if post_element_content:
-        element_id += '-' + re.sub(r"\W+", "-", post_element_content).lower()
+    # Create HTML element ID by joining element type with pre/post element content.
+    element_id = combine_into_element_id(['markform', 'textarea', pre_element_content, post_element_content])
 
     # Generate HTML for label before input.
     if pre_element_content:
-        label_before_textarea = '<label for="{}">{}</label>'.format(element_id, cgi.escape(pre_element_content, quote=True))
+        label_before_textarea = create_label(element_id, pre_element_content)
         output_html_lines.append(label_before_textarea)
     
     # Generate HTML for input.
@@ -109,7 +98,7 @@ def textarea_element(pre_element_content, post_element_content, inner_content):
     
     # Generate HTML for label after input.
     if post_element_content:
-        label_after_textarea = '<label for="{}">{}</label>'.format(element_id, cgi.escape(post_element_content, quote=True))
+        label_after_textarea = create_label(element_id, post_element_content)
         output_html_lines.append(label_after_textarea)
 
     # Last line is a closing div tag.
