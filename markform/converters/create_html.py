@@ -94,7 +94,7 @@ def textarea_element(pre_element_content, post_element_content, inner_content):
     
     # Generate HTML for input.
     textarea_tags = '<textarea id="{}"></textarea>'.format(element_id)
-    output_html_lines.append(textarea_html)
+    output_html_lines.append(textarea_tags)
     
     # Generate HTML for label after input.
     if post_element_content:
