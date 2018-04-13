@@ -45,8 +45,8 @@ def input_element(input_type, pre_element_content, post_element_content, inner_c
         output_html_lines.append(label_before_input)
     
     # Generate HTML for input.
-    input_element = '<input id="{}" type="{}">'.format(element_id, input_type)
-    output_html_lines.append(input_element)
+    input_tag = '<input id="{}" type="{}">'.format(element_id, input_type)
+    output_html_lines.append(input_tag)
     
     # Generate HTML for label after input.
     if post_element_content:
