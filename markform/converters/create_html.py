@@ -5,11 +5,11 @@ import cgi
 # Like, convert `Name of form: [+]` into <form><fieldset><legend>Name of form:</legend>...<fieldset></form>
 # Or, convert `[+ method="post" action="action.php" +]` into <form method="post" action="action.php">
 
-def form_start(input_type, pre_element_content, post_element_content, inner_content):
+def form_start(pre_element_content, post_element_content, inner_content):
     return "<form>"
 
 
-def form_end(input_type, pre_element_content, post_element_content, inner_content):
+def form_end(pre_element_content, post_element_content, inner_content):
     return "</form>"
 
 
