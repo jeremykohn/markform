@@ -1,6 +1,19 @@
 import re
 import cgi
 
+# Helpers.
+
+# Create element ID by assembling specified text segments.
+def combine_into_element_id(id_segments):
+    # Remove empty segments.
+    id_segments = [segment for segment in id_segments if segment]
+    # Join with '-', replace nonword characters with '-', and convert all to lowercase.
+    combined_text = ('-').join(id_segments)
+    combined_text = re.sub(r'\W+', '-', combined_text)
+    combined_text = combined_text.lower()
+    return combined_text
+
+
 # Later, might add more features.
 # Like, convert `Name of form: [+]` into <form><fieldset><legend>Name of form:</legend>...<fieldset></form>
 # Or, convert `[+ method="post" action="action.php" +]` into <form method="post" action="action.php">
@@ -25,20 +38,10 @@ def input_element(input_type, pre_element_content, post_element_content, inner_c
     pre_element_content = pre_element_content.strip()
     post_element_content = post_element_content.strip()
     
-    # Combine input type with pre-element and post-element content 
-    # to create an ID for the HTML input element.
-    element_id = 'markform-' + input_type + '-input'
+    # Create HTML element ID by joining element type with pre/post element content.
+    element_id_segments = ['markform', input_type, 'input', pre_element_content, post_element_content]
+    element_id = combine_into_element_id(element_id_segments)
     
-    # If there is pre-element content, 
-    # convert to kebab-case-text and append that to the element ID.
-    if pre_element_content:
-        element_id += '-' + re.sub(r"\W+", "-", pre_element_content).lower()
-    
-    # And if there is post-element content, 
-    # convert to kebab-case-text and append that to the element ID as well.
-    if post_element_content:
-        element_id += '-' + re.sub(r"\W+", "-", post_element_content).lower()
-
     # Generate HTML for label before input.
     if pre_element_content:
         label_before_input = '<label for="{}">{}</label>'.format(element_id, cgi.escape(pre_element_content, quote=True))
