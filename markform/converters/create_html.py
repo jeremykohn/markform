@@ -1,6 +1,10 @@
 import re
 import cgi
 
+# Later, might add more features.
+# Like, convert `Name of form: [+]` into <form><fieldset><legend>Name of form:</legend>...<fieldset></form>
+# Or, convert `[+ method="post" action="action.php" +]` into <form method="post" action="action.php">
+
 def form_start(input_type, pre_element_content, post_element_content, inner_content):
     return "<form>"
 
