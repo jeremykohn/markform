@@ -84,6 +84,7 @@ def parse_line(line):
         "-": "end",
         "_": "text_input",
         "@": "email_input",
+        "*": "password_input",
         "$": "number_input",
         "%": "range_input",
         "^": "file_input",
