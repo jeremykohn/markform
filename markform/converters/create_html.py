@@ -18,6 +18,11 @@ def create_label(element_id, label_content):
     label_html = '<label for="{}">{}</label>'.format(element_id, escaped_label_content)
     return label_html
 
+def create_button_text(content):
+    button_text = content.strip()
+    button_text = cgi.escape(button_text)
+    return button_text
+
 
 # Later, might add more features.
 # Like, convert `Name of form: [+]` into <form><fieldset><legend>Name of form:</legend>...<fieldset></form>
@@ -99,6 +104,46 @@ def textarea_element(pre_element_content, post_element_content, inner_content):
     if post_element_content:
         label_after_textarea = create_label(element_id, post_element_content)
         output_html_lines.append(label_after_textarea)
+
+    # Last line is a closing div tag.
+    output_html_lines.append('</div>')
+
+    # Output final HTML.
+    output_html = "\n".join(output_html_lines)
+    
+    return output_html
+
+
+def submit_button_element(pre_element_content, post_element_content, inner_content):
+    output_html_lines = []
+    
+    # Output is surrounded by div tags.
+    # First line is an opening div tag.
+    output_html_lines.append('<div>')
+
+    # Trim whitespace around pre- and post-element content.
+    pre_element_content = pre_element_content.strip()
+    post_element_content = post_element_content.strip()
+
+    # Generate button text/value from inner content.
+    button_text = create_button_text(inner_content)
+    
+    # Create HTML element ID by joining element type with button text and pre/post element content.
+    element_id = combine_into_element_id(['markform', 'submit-button', pre_element_content, button_text, post_element_content])
+    
+    # Generate HTML for label before submit button.
+    if pre_element_content:
+        label_before_submit_button = create_label(element_id, pre_element_content)
+        output_html_lines.append(label_before_submit_button)
+    
+    # Generate HTML for submit button.
+    submit_button_tags = '<button id="{}" type="submit">{}</button>'.format(element_id, button_text)
+    output_html_lines.append(submit_button_tags)
+
+    # Generate HTML for label after submit button.
+    if post_element_content:
+        label_after_submit_button = create_label(element_id, post_element_content)
+        output_html_lines.append(label_after_submit_button)
 
     # Last line is a closing div tag.
     output_html_lines.append('</div>')
