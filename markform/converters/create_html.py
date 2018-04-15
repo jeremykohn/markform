@@ -124,18 +124,18 @@ def submit_button_element(pre_element_content, post_element_content, inner_conte
     # Trim whitespace around pre- and post-element content.
     pre_element_content = pre_element_content.strip()
     post_element_content = post_element_content.strip()
-
-    # Generate button text/value from inner content.
-    button_text = create_button_text(inner_content)
     
-    # Create HTML element ID by joining element type with button text and pre/post element content.
-    element_id = combine_into_element_id(['markform', 'submit-button', pre_element_content, button_text, post_element_content])
+    # Create HTML element ID by joining element type with inner content and pre/post element content.
+    element_id = combine_into_element_id(['markform', 'submit-button', pre_element_content, inner_content, post_element_content])
     
     # Generate HTML for label before element.
     if pre_element_content:
         pre_element_label = create_label(element_id, pre_element_content)
         output_html_lines.append(pre_element_label)
-    
+
+    # Generate button text from inner content.
+    button_text = create_button_text(inner_content)
+
     # Generate HTML for submit button.
     submit_button_tags = '<button id="{}" type="submit">{}</button>'.format(element_id, button_text)
     output_html_lines.append(submit_button_tags)
