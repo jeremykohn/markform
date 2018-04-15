@@ -28,7 +28,7 @@ def convert_text(markform_text):
             output = create_html.form_end(pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Various types of <input> elements.
         # Text input.
-        elif identifer == "_":
+        elif identifier == "_":
             output = create_html.input_element(input_type="text", pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Email input.
         elif identifier == "@":
@@ -37,7 +37,7 @@ def convert_text(markform_text):
         elif identifier == "*":
             output = create_html.input_element(input_type="password", pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Number input.
-        elif identifer == "$":
+        elif identifier == "$":
             output = create_html.input_element(input_type="number", pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Range input.
         elif identifier == "%":
@@ -46,7 +46,7 @@ def convert_text(markform_text):
         elif identifier == "^":
             output = create_html.input_element(input_type="file", pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Textarea.
-        elif identifer == "[":
+        elif identifier == "[":
             output = create_html.textarea_element(pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Submit button.
         elif identifier == "(":
