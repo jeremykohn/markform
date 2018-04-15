@@ -4,7 +4,7 @@ A quick shorthand for creating HTML forms, inspired by [Markdown](https://daring
 
 ## Form elements
 
-| Element name | Markform input | HTML output |
+| Element name | Markform code | HTML equivalent |
 | --- | -- | -- |
 | Form start | `[+]` | `<form>` |
 | Text input | `[_]` | `<input type="text">` |
