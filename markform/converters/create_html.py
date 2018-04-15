@@ -86,16 +86,16 @@ def textarea_element(pre_element_content, post_element_content, inner_content):
     # Create HTML element ID by joining element type with pre/post element content.
     element_id = combine_into_element_id(['markform', 'textarea', pre_element_content, post_element_content])
 
-    # Generate HTML for label before input.
+    # Generate HTML for label before textarea.
     if pre_element_content:
         label_before_textarea = create_label(element_id, pre_element_content)
         output_html_lines.append(label_before_textarea)
     
-    # Generate HTML for input.
+    # Generate HTML for textarea.
     textarea_tags = '<textarea id="{}"></textarea>'.format(element_id)
     output_html_lines.append(textarea_tags)
     
-    # Generate HTML for label after input.
+    # Generate HTML for label after textarea.
     if post_element_content:
         label_after_textarea = create_label(element_id, post_element_content)
         output_html_lines.append(label_after_textarea)
