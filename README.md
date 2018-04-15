@@ -83,7 +83,7 @@ Converted to HTML:
 ```
 <form>
   <div>
-    <label for="markform-file-input-image-file-to-rescale">Image to rescale</label>
+    <label for="markform-file-input-image-file-to-rescale">Image file to rescale</label>
     <input id="markform-file-input-image-file-to-rescale" type="file">
   </div>
   <div>
