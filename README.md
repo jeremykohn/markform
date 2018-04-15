@@ -4,17 +4,17 @@ A quick shorthand for creating HTML forms, inspired by [Markdown](https://daring
 
 ## Form elements
 
-| Element name | Markform code | HTML tag |
+| Element name | Markform input | HTML output |
 | --- | -- | -- |
 | Form start | `[+]` | `<form>` |
 | Text input | `[_]` | `<input type="text">` |
-| Textarea | `[[ ]]` | `<textarea>` |
+| Textarea | `[[ ]]` | `<textarea></textarea>` |
 | Email input | `[@]` | `<input type="email">` |
 | Password input |`[*]` | `<input type="password">` |
 | Number input | `[$]` | `<input type="number">` |
 | Range input | `[%]` | `<input type="range">` |
 | File upload | `[^]` | `<input type="file">` |
-| Submit button | `[( )]` | `<button type="submit">` |
+| Submit button | `[( )]` | `<button type="submit"><button>` |
 | Form end | `[-]` | `</form>` |
 
 ## Example Usage
