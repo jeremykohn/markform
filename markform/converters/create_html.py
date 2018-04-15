@@ -51,19 +51,19 @@ def input_element(input_type, pre_element_content, post_element_content, inner_c
     # Create HTML element ID by joining element type with pre/post element content.
     element_id = combine_into_element_id(['markform', input_type, 'input', pre_element_content, post_element_content])
     
-    # Generate HTML for label before input.
+    # Generate HTML for label before element.
     if pre_element_content:
-        label_before_input = create_label(element_id, pre_element_content)
-        output_html_lines.append(label_before_input)
+        pre_element_label = create_label(element_id, pre_element_content)
+        output_html_lines.append(pre_element_label)
     
     # Generate HTML for input.
     input_tag = '<input id="{}" type="{}">'.format(element_id, input_type)
     output_html_lines.append(input_tag)
     
-    # Generate HTML for label after input.
+    # Generate HTML for label after element.
     if post_element_content:
-        label_after_input = create_label(element_id, post_element_content)
-        output_html_lines.append(label_after_input)
+        post_element_label = create_label(element_id, post_element_content)
+        output_html_lines.append(post_element_label)
 
     # Last line is a closing div tag.
     output_html_lines.append('</div>')
@@ -91,19 +91,19 @@ def textarea_element(pre_element_content, post_element_content, inner_content):
     # Create HTML element ID by joining element type with pre/post element content.
     element_id = combine_into_element_id(['markform', 'textarea', pre_element_content, post_element_content])
 
-    # Generate HTML for label before textarea.
+    # Generate HTML for label before element.
     if pre_element_content:
-        label_before_textarea = create_label(element_id, pre_element_content)
-        output_html_lines.append(label_before_textarea)
+        pre_element_label = create_label(element_id, pre_element_content)
+        output_html_lines.append(pre_element_label)
     
     # Generate HTML for textarea.
     textarea_tags = '<textarea id="{}"></textarea>'.format(element_id)
     output_html_lines.append(textarea_tags)
     
-    # Generate HTML for label after textarea.
+    # Generate HTML for label after element.
     if post_element_content:
-        label_after_textarea = create_label(element_id, post_element_content)
-        output_html_lines.append(label_after_textarea)
+        post_element_label = create_label(element_id, post_element_content)
+        output_html_lines.append(post_element_label)
 
     # Last line is a closing div tag.
     output_html_lines.append('</div>')
@@ -131,19 +131,19 @@ def submit_button_element(pre_element_content, post_element_content, inner_conte
     # Create HTML element ID by joining element type with button text and pre/post element content.
     element_id = combine_into_element_id(['markform', 'submit-button', pre_element_content, button_text, post_element_content])
     
-    # Generate HTML for label before submit button.
+    # Generate HTML for label before element.
     if pre_element_content:
-        label_before_submit_button = create_label(element_id, pre_element_content)
-        output_html_lines.append(label_before_submit_button)
+        pre_element_label = create_label(element_id, pre_element_content)
+        output_html_lines.append(pre_element_label)
     
     # Generate HTML for submit button.
     submit_button_tags = '<button id="{}" type="submit">{}</button>'.format(element_id, button_text)
     output_html_lines.append(submit_button_tags)
 
-    # Generate HTML for label after submit button.
+    # Generate HTML for label after element.
     if post_element_content:
-        label_after_submit_button = create_label(element_id, post_element_content)
-        output_html_lines.append(label_after_submit_button)
+        post_element_label = create_label(element_id, post_element_content)
+        output_html_lines.append(post_element_label)
 
     # Last line is a closing div tag.
     output_html_lines.append('</div>')
