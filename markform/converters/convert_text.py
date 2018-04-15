@@ -7,7 +7,7 @@ def convert_text(markform_text):
 
     # Convert document line by line.
     
-    for line in lines:
+    for line in input_lines:
         
         # Call function to split line into components.
         parsed_line = parse_line(line)
