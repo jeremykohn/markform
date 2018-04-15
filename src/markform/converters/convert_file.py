@@ -16,7 +16,7 @@ def convert_file(input_filepath, custom_output_filename=None, overwrite_file=Fal
     output_text = convert_text(input_text)
 
     # Check if file exists, and if so whether it should be overwritten.
-    if !isfile(input_filepath) or overwrite_file == True:
+    if not isfile(input_filepath) or overwrite_file == True:
         # OK to write converted text to file.
         with open(output_filepath, 'w') as outfile:
             outfile.write(output_text)
