@@ -50,7 +50,7 @@ def convert_text(markform_text):
             output = create_html.textarea_element(pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Submit button.
         elif identifier == "(":
-            output = create_html.submit_button(pre_element_content=pre, post_element_content=post, inner_content=inner)
+            output = create_html.submit_button_element(pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Element group.
         elif identifier == "{":
             # Parse the inner content first, to get components and determine valid type of element group. If any.
