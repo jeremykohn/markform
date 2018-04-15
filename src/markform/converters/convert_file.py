@@ -22,4 +22,4 @@ def convert_file(input_filepath, custom_output_filename=None, overwrite_file=Fal
             outfile.write(output_text)
     else:
         # Don't overwrite file.
-        raise ValueError("Must specify `overwrite_file=True`, or the Markform converter will not overwrite the existing file {}".format(basename(input_filepath), dirname(input_filepath))
+        raise ValueError("Must specify `overwrite_file=True`, or the Markform converter will not overwrite the existing file {}".format(basename(input_filepath), dirname(input_filepath)))
