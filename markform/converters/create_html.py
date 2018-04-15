@@ -14,7 +14,7 @@ def combine_into_element_id(id_segments):
     return combined_text
 
 def create_label(element_id, label_content):
-    escaped_label_content = cgi.escape(pre_element_content, quote=True)
+    escaped_label_content = cgi.escape(label_content, quote=True)
     label_html = '<label for="{}">{}</label>'.format(element_id, escaped_label_content)
     return label_html
 
