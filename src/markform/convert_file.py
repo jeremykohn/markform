@@ -3,7 +3,7 @@ from convert_text import convert_text
 
 def convert_file(input_filepath, custom_output_filename=None, overwrite_file=False):
     # Create output filepath. Custom filename if specified, otherwise automatically generated.
-    if custom_output_name:
+    if custom_output_filename:
         output_filepath = join(dirname(input_filepath), custom_output_filename)
     else:
         output_filepath = join(dirname(input_filepath), "converted_" + basename(input_filepath) + ".html")
@@ -16,7 +16,7 @@ def convert_file(input_filepath, custom_output_filename=None, overwrite_file=Fal
     output_text = convert_text(input_text)
 
     # Check if file exists, and if so whether it should be overwritten.
-    if not isfile(input_filepath) or overwrite_file == True:
+    if not isfile(output_filepath) or overwrite_file == True:
         # OK to write converted text to file.
         with open(output_filepath, 'w') as outfile:
             outfile.write(output_text)
