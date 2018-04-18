@@ -1,5 +1,5 @@
-import create_html
-from parse_line import parse_line
+from helpers import create_html
+from helpers.parse_line import parse_line
 
 
 def convert_text(markform_text):
