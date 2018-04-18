@@ -6,7 +6,7 @@ def convert_file(input_filepath, custom_output_filename=None, overwrite_file=Fal
     if custom_output_name:
         output_filepath = join(dirname(input_filepath), custom_output_filename)
     else:
-        output_filepath = join(dirname(input_filepath), "converted_" + basename(input_filepath))
+        output_filepath = join(dirname(input_filepath), "converted_" + basename(input_filepath) + ".html")
 
     # Read text from Markform document.
     with open(input_filepath, 'r') as infile:
