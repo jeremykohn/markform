@@ -45,6 +45,15 @@ For some types of elements, the opening identifier and closing identifier are of
 
 ### 2.1 Elements with simple identifiers
 
+Each simple-identifier element consists of:
+
+1. An opening bracket `[`
+2. A simple identifier character, one or more times
+3. Optionally: inner content, followed by the simple identifier one or more times
+4. A closing bracket `]`
+
+The identifier determines the type of form element:
+
 | Element type | Simple identifier | Element | Element (minimal) | Element with inner content |
 | -- | -- | -- | -- | -- |
 | Form start     | `+` | `[+++++]` | `[+]` | `[+ Inner content +]` |
@@ -56,22 +65,9 @@ For some types of elements, the opening identifier and closing identifier are of
 | File upload    | `^` | `[^^^^^]` | `[^]` | `[^ Inner content ^]` |
 | Form end       | `-` | `[-----]` | `[-]` | `[- Inner content -]` |
 
-Each simple-identifier element consists of:
-
-1. An opening bracket `[`
-2. A simple identifier character, one or more times
-3. Optionally: inner content, followed by the simple identifier one or more times
-4. A closing bracket `]`
-
-An simple-identifier element is called **"minimal"** if it is only three characters long: an opening bracket, a simple identifier that is not repeated, and a closing bracket.
+A simple-identifier element is called **"minimal"** if it is only three characters long: an opening bracket, a simple identifier that is not repeated, and a closing bracket.
 
 ### 2.2 Elements with paired (inverse) identifiers: 
-
-| Element type | Opening identifier | Closing identifier | Element | Element with inner content |
-| -- | -- | -- | -- | -- |
-| Textarea      | `[` | `]` | `[[ ]]` | `[[ Inner content ]]` |
-| Submit        | `(` | `)` | `[( )]` | `[( Inner content )]` |
-| Element group | `{` | `}` | `[{ }]` | `[{ Inner content }]` |
 
 Each inverse-identifier element consists of:
 
@@ -80,3 +76,53 @@ Each inverse-identifier element consists of:
 3. Inner content, which is required for only certain types of inverse-identifier elements
 4. A closing identifier character, which is the inverse of the opening identifier character
 5. A closing bracket `]`
+
+The identifier determines the type of form element:
+
+| Element type | Opening identifier | Closing identifier | Element | Element with inner content |
+| -- | -- | -- | -- | -- |
+| Textarea      | `[` | `]` | `[[ ]]` | `[[ Inner content ]]` |
+| Submit        | `(` | `)` | `[( )]` | `[( Inner content )]` |
+| Element group | `{` | `}` | `[{ }]` | `[{ Inner content }]` |
+
+### 2.3 Element groups and inner elements
+
+| Element group type | Element group |
+| -- | -- |
+| Checkbox group       | `[{ [x] Pre-checked checkbox | [x] Also pre-checked | [ ] Not pre-checked }]`       |
+| Radio button group   | `[{ (o) Pre-checked radio button | ( ) Not pre-checked ( ) Also not pre-checked }]` |
+| Dropdown/Select menu | `[{ > Dropdown option | >> Pre-selected default option | > Another option }]` |
+
+An element group consists of:
+
+1. An opening bracket `[`
+2. An opening curly brace `{`, which is the element group's opening identifier
+3. Inner content
+4. A closing curly brace `}`, which is the element group's closing identifier
+5. A closing bracket `]`
+
+The element group's inner content consists of inner elements separated from each other by pipe `|` characters.
+
+However, a pipe character preceded by a backslash `\|` is interpreted as a pipe character within an inner element, and does not separate inner elements from each other.
+
+Each inner element consists of:
+
+1. Optionally: Pre-identifier content
+2. An inner identifier
+3. Optionally: Post-identifier content
+
+Each inner element has an **"inner element identifier"** which indicates the type of form element, and also indicates whether or not that element is pre-checked or pre-selected.
+
+The type of inner element determines the type of element group:
+
+| Element group type | Inner element type | Identifier | Element |
+| -- | -- | -- | -- |
+| Checkbox group       | Checkbox input (pre-checked)   | `[x]` | `[x] Option 1` |
+| Checkbox group       | Checkbox input                 | `[ ]` | `[ ] Option 2` |
+| Radio button group   | Radio input (pre-checked)      | `(o)` | `(o) Option 1` |
+| Radio button group   | Radio input                    | `( )` | `( ) Option 2` | 
+| Dropdown/Select menu | Dropdown option (pre-selected) | `>>`  | `>> Option 1`  |
+| Dropdown/Select menu | Dropdown option                | `>`   | `> Option 2`   |
+
+
+
