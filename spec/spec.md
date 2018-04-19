@@ -97,19 +97,17 @@ An element group consists of:
 
 1. An opening bracket `[`
 2. An opening curly brace `{`, which is the element group's opening identifier
-3. Inner content
+3. Inner content, consisting of one or more inner elements that are separated from each other by pipe `|` characters
 4. A closing curly brace `}`, which is the element group's closing identifier
 5. A closing bracket `]`
-
-The element group's inner content consists of inner elements separated from each other by pipe `|` characters.
-
-However, a pipe character preceded by a backslash `\|` is interpreted as a pipe character within an inner element, and does not separate inner elements from each other.
 
 Each inner element consists of:
 
 1. Optionally: Pre-identifier content
 2. An inner identifier
 3. Optionally: Post-identifier content
+
+The pre-identifier content or post-identifier content can include pipe characters, but only if they are "escaped" by prepending a backslash: the two-character sequence `\|` is interpreted as a pipe character within an inner element.
 
 Each inner element has an **"inner element identifier"** which indicates the type of form element, and also indicates whether or not that element is pre-checked or pre-selected.
 
@@ -123,6 +121,3 @@ The type of inner element determines the type of element group:
 | Radio button group   | Radio input                    | `( )` | `( ) Option 2` | 
 | Dropdown/Select menu | Dropdown option (pre-selected) | `>>`  | `>> Option 1`  |
 | Dropdown/Select menu | Dropdown option                | `>`   | `> Option 2`   |
-
-
-
