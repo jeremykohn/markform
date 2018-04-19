@@ -25,8 +25,6 @@ Therefore, these are equivalent:
 
 `[{ (o) Yes | (o) No }]`
 
-and
-
 `[{ (o) Yes | ( ) No }]`
 
 #### Dropdown/select menus
@@ -39,8 +37,6 @@ Therefore, these are equivalent:
 
 `[{ > Choose | >> Only | >> One }]`
 
-and
-
 `[{ > Choose | >> Only | > One }]`
 
 
@@ -52,16 +48,11 @@ Therefore, these are equivalent:
 
 `[{ [ ] This is a checkbox group | with three inner elements | each of which is a checkbox input. }]`
 
-and
-
 `[{ [ ] This is a checkbox group | [ ] with three inner elements | [ ] each of which is a checkbox input. }]`
-
 
 These are also equivalent:
 
 `[{ [ ] This is a checkbox group | ( ) not a radio button group | > and not a dropdown menu. }]`
-
-and
 
 `[{ [ ] This is a checkbox group | [ ] ( ) Not a radio button group | [ ] > and not a dropdown menu. }]`
 
