@@ -152,3 +152,18 @@ def submit_button_element(pre_element_content, post_element_content, inner_conte
     output_html = "\n".join(output_html_lines)
     
     return output_html
+
+
+def element_group(pre_element_content, post_element_content, inner_content):
+    # Turn inner content into array of inner elements
+        # Divide using pipe characters `|`
+        # Detect type of the first inner element
+        # Detect type of the other inner elements; 
+            # parse as 'same type' if they're of the same type,
+            # or parse as just strings if they aren't of the same type
+    
+    # Provide input to the respective function
+    # checkbox_group()
+    # radio_button_group()
+    # dropdown_menu()
+    # And within each of those, have functions to parse inner elements into pre-identifier content, post-identifier content, and identifier

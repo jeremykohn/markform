@@ -66,8 +66,8 @@ def convert_text(markform_text):
             elif group_type == "radio":
                 output = create_html.radio_group(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
             # Select / dropdown menu.
-            elif group_type == "select":  # or "dropdown" and create_dropdown_menu() ?
-                output = create_html.select_menu(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
+            elif group_type == "dropdown":
+                output = create_html.dropdown_menu(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
             else:
                 # Don't convert element group, just append to output.
                 output = line
