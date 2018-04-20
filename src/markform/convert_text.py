@@ -55,23 +55,8 @@ def convert_text(markform_text):
             output = create_html.submit_button_element(pre_element_content=pre, post_element_content=post, inner_content=inner)
         # Element group.
         elif identifier == "{":
-            # Parse the inner content first, to get components and determine valid type of element group. If any.
-            parsed_element_group = parse_element_group(inner)
-            group_type = parsed_element_group["group_type"]
-            inner_element_list = parsed_element_group["inner_element_list"]  # Each inner element includes a [ ], [x], ( ), (o), or >, but not | characters
-            # Checkbox group.
-            if group_type == "checkbox":
-                output = create_html.checkbox_group(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
-            # Radio button group.
-            elif group_type == "radio":
-                output = create_html.radio_group(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
-            # Select / dropdown menu.
-            elif group_type == "dropdown":
-                output = create_html.dropdown_menu(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
-            else:
-                # Don't convert element group, just append to output.
-                output = line
-    
+                output = create_html.element_group(pre_element_content=pre, post_element_content=post, inner_content=inner)
+        
         # No identifier returned by parser. Not a Markform element.
         else:
             # Don't convert line, just append to output.
