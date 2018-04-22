@@ -153,6 +153,18 @@ def submit_button_element(pre_element_content, post_element_content, inner_conte
     
     return output_html
 
+"""
+
+def parse_element_group
+
+def checkbox_group( ... )
+
+def radio_button_group( ... )
+
+def dropdown_menu( ... )
+
+
+
 
 def element_group(pre_element_content, post_element_content, inner_content):
     # Turn inner content into array of inner elements
@@ -162,8 +174,76 @@ def element_group(pre_element_content, post_element_content, inner_content):
             # parse as 'same type' if they're of the same type,
             # or parse as just strings if they aren't of the same type
     
-    # Provide input to the respective function
+    # Parse inner content of element group.
+    parsed_inner_elements = []
+    # That will include element type, prechecked/preselected, pre-identifier label/content, post-identifier label/content
+
+    inner_element_list = []
+    # Just a list of separate inner elements.
+
+    pos = 0
+    current_character = None
+    previous_character = None
+    next_character = None
+
+    current_inner_element_start = 0
+    # current_inner_element_end = None
+
+
+    # Parse inner content, divide into elements.
+    while pos < len(inner_content):
+        current_character = inner_content[pos]
+        if pos > 0:
+            previous_character = inner_content[pos - 1]
+        if pos < len(inner_content) - 1:
+            next_character = inner_content[pos + 1]
+        
+        # Check for unescaped pipe character. This character divides inner elements from each other.
+        if current_character == '|' and previous_character != '\\':
+            # End of inner element, beginning of next element.
+            # Add current inner element to list.
+            current_inner_element = inner_content[current_inner_element_start:pos]
+            inner_element_list.append(current_inner_element)
+            # Update the start position of next inner element.
+            current_inner_element_start = pos + 1
+
+        # Next character.
+        pos += 1
+
+    # Remember to remove empty/blank inner elements from inner_element_list? Or treat them as empty labels?
+    
+
+    # Process each inner element.
+    # Return pre inner identifier content, post inner identifier content, element type, and checked/unchecked or selected/unselected.
+
+    # Then, provide that as input to the respective function --
     # checkbox_group()
     # radio_button_group()
     # dropdown_menu()
-    # And within each of those, have functions to parse inner elements into pre-identifier content, post-identifier content, and identifier
+    # (And within each of those, have functions to parse inner elements into pre-identifier content, post-identifier content, and identifier?)
+
+
+
+
+
+
+        # Element group.
+        elif identifier == "{":
+            # Parse the inner content first, to get components and determine valid type of element group. If any.
+            parsed_element_group = parse_element_group(inner)
+            group_type = parsed_element_group["group_type"]
+            inner_element_list = parsed_element_group["inner_element_list"]  # Each inner element includes a [ ], [x], ( ), (o), or >, but not | characters
+            # Checkbox group.
+            if group_type == "checkbox":
+                output = create_html.checkbox_group(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
+            # Radio button group.
+            elif group_type == "radio":
+                output = create_html.radio_group(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
+            # Select / dropdown menu.
+            elif group_type == "dropdown":
+                output = create_html.dropdown_menu(pre_element_content=pre, post_element_content=post, inner_element_list=inner_element_list)
+            else:
+                # Don't convert element group, just append to output.
+                output = line
+
+"""
