@@ -7,7 +7,7 @@ Also element group
 
 A text input element's first two characters are an opening bracket `[` followed by an underscore `_`.
 
-A text input element's first two characters are an underscore `_` followed by a closing bracket `]`.
+A text input element's last two characters are an underscore `_` followed by a closing bracket `]`.
 
 If there is text content that comes before the input element, then that pre-element content is converted to a pre-element label.
 
@@ -43,6 +43,29 @@ HTML:
 (? If there is placeholder text, it is also included as part of the input ID and label `for` values. ?)
 
 
+
+
+### Textarea
+
+A textarea element begins with two opening bracket characters `[[` and ends with two closing bracket characters `]]`.
+
+If there is text content between the beginning and end of the textarea element, it is converted into placeholder text. (After you strip the outer spaces from pre-element and post-element content.)
+
+If there is text content that comes before the textarea element, then that pre-element content is converted to a pre-element label.
+
+If there is text content that comes after the textarea element, then that post-element content is converted to a post-element label.
+
+
+
+### Submit button
+
+A submit button element begins with an opening bracket followed immediately by an opening parenthesis `[(` and ends with a closing parenthesis followed immediately by a closing bracket `)]`.
+
+If there is text content between the beginning and end of the submit button, it is converted into text inside the button element.
+
+If there is text content that comes before the submit button element, then that pre-element content is converted to a pre-element label.
+
+If there is text content that comes after the submit button element, then that post-element content is converted to a post-element label.
 
 
 
