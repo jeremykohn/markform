@@ -90,7 +90,7 @@ The identifier determines the type of form element:
 | Element group type | Element group |
 | -- | -- |
 | Checkbox group       | `[{ [x] Pre-checked checkbox \| [x] Also pre-checked \| [ ] Not pre-checked }]`       |
-| Radio button group   | `[{ (o) Pre-checked radio button \| ( ) Not pre-checked \| ( ) Also not pre-checked }]` |
+| Radio button group   | `[{ ( ) Radio button \| (o) Pre-checked radio button \| ( ) Not pre-checked }]` |
 | Dropdown/Select menu | `[{ > Dropdown option \| >> Pre-selected default option \| > Another option }]` |
 
 An element group consists of:
